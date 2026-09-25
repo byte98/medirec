@@ -1,0 +1,56 @@
+/*
+Copyright (C) 2026 Jiri Skoda <developer@skodaj.cz>
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; version 2
+of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+/* 
+    Created on : 9 Sept 2026, 11:10:19
+    Author     : Jiri Skoda <developer@skodaj.cz>
+*/
+
+@font-face {
+    font-family: "Selawik";
+    src: url("./selawk.ttf");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Selawik";
+    src: url("./selawkb.ttf");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Selawik";
+    src: url("./selawkl.ttf");
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Selawik";
+    src: url("./selawksb.ttf");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Selawik";
+    src: url("./selawksl.ttf");
+    font-weight: 300;
+    font-style: normal;
+}
