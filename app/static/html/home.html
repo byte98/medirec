@@ -21,19 +21,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="image/x-icon" rel="icon" href="../favicon.ico">
+    <link type="text/css" rel="stylesheet" href="../fonts/selawik.css">
+    <link type="text/css" rel="stylesheet" href="../fonts/ubuntumono.css">
+    <link type="text/css" rel="stylesheet" href="../css/dialog.css">
+    <link type="text/css" rel="stylesheet" href="../css/dialog.dark.css" media="(prefers-color-scheme: dark)">
     <link type="text/css" rel="stylesheet" href="../css/home.css">
     <link type="text/css" rel="stylesheet" href="../css/home.dark.css" media="(prefers-color-scheme: dark)">
-    <title>Document</title>
+    <link type="text/css" rel="stylesheet" href="../css/loader.css">
+    <link type="text/css" rel="stylesheet" href="../css/buttons.css">
+    <link type="text/css" rel="stylesheet" href="../css/buttons.dark.css" media="(prefers-color-scheme: dark)">
+    <title data-phrase="medical_records">Medical records</title>
+    <script type="module" src="../ionicons/ionicons.js" defer></script>
+    <script type="text/javascript" src="../js/ui.js" defer></script>
+    <script type="text/javascript" src="../js/dialog.js" defer></script>
+
 </head>
-<body>
-
-    <h1>Ionicons test</h1>
-
-    <ion-icon name="home"></ion-icon>
-    <ion-icon name="heart"></ion-icon>
-    <ion-icon name="settings"></ion-icon>
-
-    <script type="module" src="../ionicons/ionicons.js"></script>
-
+<body>    
+    <section id="dialogs">
+        <article class="dialog dialog-info">
+            <span class="dialog-icon"><ion-icon name="information-circle-outline"></ion-icon></span>
+            <span class="dialog-header">Info header</span>
+            <span class="dialog-body">Info body</span>
+            <span class="dialog-actions"><button>a</button><button class="red">b</button><button class="yellow">c</button><button class="green">d</button><button class="blue">e</button><button class="cyan">f</button></span>
+            <span class="dialog-details">Info details</span>
+        </article>
+        <article class="dialog dialog-question">
+            <span class="dialog-icon"><ion-icon name="help-circle-outline"></ion-icon></span>
+            <span class="dialog-header">Question header</span>
+            <span class="dialog-body">Question body</span>
+            <span class="dialog-actions"><button>a</button><button class="red">b</button><button class="yellow">c</button><button class="green">d</button><button class="blue">e</button><button class="cyan">f</button></span>
+            <span class="dialog-details">Question details</span>
+        </article>
+        <article class="dialog dialog-success">
+            <span class="dialog-icon"><ion-icon name="checkmark-circle-outline"></ion-icon></span>
+            <span class="dialog-header">Success header</span>
+            <span class="dialog-body">Success body</span>
+            <span class="dialog-actions"><button>a</button><button class="red">b</button><button class="yellow">c</button><button class="green">d</button><button class="blue">e</button><button class="cyan">f</button></span>
+            <span class="dialog-details">Success details</span>
+        </article>
+        <article class="dialog dialog-warning">
+            <span class="dialog-icon"><ion-icon name="alert-circle-outline"></ion-icon></span>
+            <span class="dialog-header">Warning header</span>
+            <span class="dialog-body">Warning body</span>
+            <span class="dialog-actions"><button>a</button><button class="red">b</button><button class="yellow">c</button><button class="green">d</button><button class="blue">e</button><button class="cyan">f</button></span>
+            <span class="dialog-details">Warning details</span>
+        </article>
+        <article class="dialog dialog-error">
+            <span class="dialog-icon"><ion-icon name="close-circle-outline"></ion-icon></span>
+            <span class="dialog-header">Error header</span>
+            <span class="dialog-body">Error body</span>
+            <span class="dialog-actions"><button>a</button><button class="red">b</button><button class="yellow">c</button><button class="green">d</button><button class="blue">e</button><button class="cyan">f</button></span>
+            <span class="dialog-details">Error details</span>
+        </article>
+    </section>
+    <section id="title">
+        <a href="./home.html">
+            <h1><img src="../medirec.png" alt="Logo"><span data-phrase="medical_records">Medical records</span></h1>
+        </a>
+        <div class="loader" aria-label="Loading">
+            <span class="loader-dot"></span>
+            <span class="loader-dot"></span>
+            <span class="loader-dot"></span>
+            <span class="loader-dot"></span>
+        </div>
+    </section>
+    <main class="hidden">
+        <a href="./home.html">
+            <h1><img src="../medirec.png" alt="Logo"><span data-phrase="medical_records">Medical records</span></h1>
+        </a>
+        <section id="content">
+            
+        </section>
+    </main>
 </body>
 </html>

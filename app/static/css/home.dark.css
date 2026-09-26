@@ -19,4 +19,63 @@
 :root{
     --text-color: rgb(255, 255, 255);
     --background-color: rgb(0, 0, 0);
+    --background-color-translucent: rgba(0, 0, 0, 0.5);
+}
+
+main > section#content{
+    -webkit-box-shadow: 0px -4px 8px 4px rgba(0,0,0,0.9); 
+    -moz-box-shadow: 0px -4px 8px 4px rgba(0,0,0,0.9); 
+    box-shadow: 0px -4px 8px 4px rgba(0,0,0,0.90);
+}
+
+/**
+ * Body background
+ */
+body{
+    --bg-color1: rgb(163, 0, 0);
+    --bg-color2: rgb(0, 81, 113);
+}
+@property --bg-color1 {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(163, 0, 0);
+}
+
+@property --bg-color2 {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(0, 81, 113);
+}
+@keyframes body-background{
+    0%{
+        --bg-color1: rgb(163, 0, 0);
+        --bg-color2: rgb(0, 81, 113);
+    }
+    25%{
+        --bg-color1: rgb(0, 81, 113);
+        --bg-color2: rgb(4, 116, 0);
+    }
+    50%{
+        --bg-color1: rgb(4, 116, 0);
+        --bg-color2: rgb(192, 182, 0);
+    }
+    75%{
+        --bg-color1: rgb(192, 182, 0);
+        --bg-color2: rgb(163, 0, 0);
+    }
+    100%{
+        --bg-color1: rgb(163, 0, 0);
+        --bg-color2: rgb(0, 81, 113);
+    }
+}
+
+/**
+ * General content hiding
+ */
+.dark-only{
+    display: initial !important;
+}
+
+.light-only{
+    display: none !important;
 }

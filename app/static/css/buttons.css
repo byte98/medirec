@@ -1,0 +1,69 @@
+/**
+ * MediRec - simple web application to save some basic medical records.
+ * Copyright (C) 2026 Jiri Skoda <developer@skodaj.cz>
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 2 of the License.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
+/**
+ * Default button styling
+ */
+
+button{
+    background: var(--background-color);
+    color: var(--text-color);
+    background:linear-gradient(rgb(242, 242, 242) 45%, rgb(235, 235, 235) 45%, rgb(207, 207, 207));
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border: 1px solid rgb(142, 143, 143);
+    transition: all 0.2s ease-in-out;
+    border-radius: 0.25rem;
+    box-shadow: 0px 4px 8px 4px rgba(0,0,0,0.2);
+    margin: 0.25rem;
+}
+
+button.red{
+    background:linear-gradient(rgb(221, 162, 162) 45%, rgb(217, 132, 132) 45%, rgb(235, 135, 135));
+    border-color: rgb(168, 98, 98);
+}
+
+button.yellow{
+    background:linear-gradient(rgb(242, 242, 162) 45%, rgb(217, 217, 132) 45%, rgb(235, 235, 135));
+    border-color: rgb(168, 168, 98);
+}
+
+button.green{
+    background:linear-gradient(rgb(162, 221, 162) 45%, rgb(132, 217, 132) 45%, rgb(135, 235, 135));
+    border-color: rgb(98, 168, 98);
+}
+
+button.blue{
+    background:linear-gradient(rgb(162, 162, 221) 45%, rgb(132, 132, 217) 45%, rgb(135, 135, 235));
+    border-color: rgb(98, 98, 168);
+}
+
+button.cyan{
+    background:linear-gradient(rgb(162, 221, 221) 45%, rgb(132, 217, 217) 45%, rgb(135, 235, 235));
+    border-color: rgb(98, 168, 168);
+}
+
+button:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+    filter: invert(0.1);
+}
+
+button:active{
+    transform: scale(0.95);
+    filter: invert(0.2);
+}

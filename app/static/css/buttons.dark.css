@@ -1,0 +1,47 @@
+/**
+ * MediRec - simple web application to save some basic medical records.
+ * Copyright (C) 2026 Jiri Skoda <developer@skodaj.cz>
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 2 of the License.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
+button{
+    background:linear-gradient(rgb(46, 46, 46) 45%, rgb(33, 33, 33) 45%, rgb(8, 8, 8));
+    border: 1px solid rgb(22, 22, 22);
+}
+
+button.red{
+    background:linear-gradient(rgb(162, 46, 46) 45%, rgb(132, 33, 33) 45%, rgb(135, 8, 8));
+    border-color: rgb(98, 22, 22);
+}
+
+button.yellow{
+    background:linear-gradient(rgb(162, 162, 46) 45%, rgb(132, 132, 33) 45%, rgb(135, 135, 8));
+    border-color: rgb(98, 98, 22);
+}
+
+button.green{
+    background:linear-gradient(rgb(46, 162, 46) 45%, rgb(33, 132, 33) 45%, rgb(8, 135, 8));
+    border-color: rgb(22, 98, 22);
+}
+
+button.blue{
+    background:linear-gradient(rgb(46, 46, 162) 45%, rgb(33, 33, 132) 45%, rgb(8, 8, 135));
+    border-color: rgb(22, 22, 98);
+}
+
+button.cyan{
+    background:linear-gradient(rgb(46, 162, 162) 45%, rgb(33, 132, 132) 45%, rgb(8, 135, 135));
+    border-color: rgb(22, 98, 98);
+}

@@ -1,0 +1,109 @@
+/**
+ * MediRec - simple web application to save some basic medical records.
+ * Copyright (C) 2026 Jiri Skoda <developer@skodaj.cz>
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 2 of the License.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
+.dialog{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: repeat(4, auto);
+    grid-template-areas:
+        "icon header"
+        "icon body"
+        "icon actions"
+        "icon details";
+    -webkit-box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.9); 
+    box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.9);    
+    -moz-box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.9);
+    margin: 0.5rem;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
+    border-radius: 0.5rem;
+}
+
+.dialog > .dialog-icon{
+    grid-area: icon;
+    padding: 0.5rem;
+    font-size: 24pt;
+    display: grid;
+    place-items: center;
+    margin-right: 0.5rem;
+    border: 2px solid rgb(0, 0, 0);
+}
+
+.dialog > .dialog-header{
+    grid-area: header;
+    font-weight: 900;
+    padding-bottom: 0.5rem;
+}
+
+.dialog > .dialog-body{
+    grid-area: body;
+}
+
+.dialog > .dialog-actions{
+    grid-area: actions;
+}
+
+.dialog > .dialog-details{
+    grid-area: details;
+    font-family: "UbuntuMono", monospace;
+}
+
+.dialog.dialog-info{
+    background: radial-gradient(circle at left top, rgba(255, 255, 255, 0.7) 0%, rgb(132, 218, 255, 0.7) 100%);
+}
+
+.dialog.dialog-warning{
+    background: radial-gradient(circle at left top, rgb(255, 255, 255, 0.7) 0%, rgb(255, 218, 132, 0.7) 100%);
+}
+
+.dialog.dialog-error{
+    background: radial-gradient(circle at left top, rgb(255, 255, 255, 0.7) 0%, rgb(255, 132, 132, 0.7) 100%);
+}
+
+.dialog.dialog-success{
+    background: radial-gradient(circle at left top, rgb(255, 255, 255, 0.7) 0%, rgb(132, 255, 132, 0.7) 100%);
+}
+
+.dialog.dialog-question{
+    background: radial-gradient(circle at left top, rgb(255, 255, 255, 0.7) 0%, rgba(132, 249, 255, 0.7) 100%);
+}
+
+.dialog.dialog-info > .dialog-icon{
+    background:linear-gradient(rgb(162, 162, 221) 45%, rgb(132, 132, 217) 45%, rgb(135, 135, 235));
+    border-color: rgb(98, 98, 168);
+}
+
+.dialog.dialog-warning > .dialog-icon{
+    background:linear-gradient(rgb(242, 242, 162) 45%, rgb(217, 217, 132) 45%, rgb(235, 235, 135));
+    border-color: rgb(168, 168, 98);
+}
+
+.dialog.dialog-error > .dialog-icon{
+    background:linear-gradient(rgb(221, 162, 162) 45%, rgb(217, 132, 132) 45%, rgb(235, 135, 135));
+    border-color: rgb(168, 98, 98);
+}
+
+.dialog.dialog-success > .dialog-icon{
+    background:linear-gradient(rgb(162, 221, 162) 45%, rgb(132, 217, 132) 45%, rgb(135, 235, 135));
+    border-color: rgb(98, 168, 98);
+}
+
+.dialog.dialog-question > .dialog-icon{
+    background:linear-gradient(rgb(162, 221, 221) 45%, rgb(132, 217, 217) 45%, rgb(135, 235, 235));
+    border-color: rgb(98, 168, 168);
+}
