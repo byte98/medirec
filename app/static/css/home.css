@@ -173,4 +173,8 @@ body{
     width: 100dvw;
     height: 100dvh;
     z-index: 1000;
+    background: var(--background-color-translucent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    -moz-backdrop-filter: blur(8px);
 }

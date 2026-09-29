@@ -63,6 +63,13 @@
     font-family: "UbuntuMono", monospace;
 }
 
+.dialog > .dialog-actions button ion-icon{
+    font-size: 16pt;
+    vertical-align: middle;
+    margin-right: 0.25rem;
+    margin-left: 0.25rem;
+}
+
 .dialog.dialog-info{
     background: radial-gradient(circle at left top, rgba(255, 255, 255, 0.7) 0%, rgb(132, 218, 255, 0.7) 100%);
 }
