@@ -109,14 +109,4 @@ class LanguageMeta{
     get flag(){
         return this.#flag;
     }
-
-    /**
-     * Fetches the language metadata from the API.
-     * @param {API} api The API to fetch the metadata from.
-     * @returns {Promise<Array<LanguageMeta>>} A promise that resolves to the language metadata.
-     */
-    static fetch(api){
-
-    }
-
 }

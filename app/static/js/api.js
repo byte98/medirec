@@ -46,16 +46,16 @@ class API{
 
     /**
      * Fetches language metadata from the API.
-     * @param {Function<Array<LanguageMeta>>} onSuccess The callback function to call with the fetched metadata.
-     * @param {Function<string>} onError The callback function to call with the error message in case of failure.
+     * @param {function(LanguageMeta[])} onSuccess The callback function to call with the fetched metadata.
+     * @param {function(string)} onError The callback function to call with the error message in case of failure.
      */
     fetchLanguageMeta(onSuccess, onError){
         let timedOut = false;
         const fetchPoint = `${this.#endpoint}/languages`;
-        const startTime = Date.now();
+        const startTime = new Date(Date.now());
         const timeoutId = window.setTimeout(() => {
             timedOut = true;
-            onError(startTime.toISOString() + " Fetching language metadata ('" + fetchPoint + "') ...\n" + Date.now().toISOString() + " ERROR: Request took too long (max. allowed time: " + this.#timeout + " ms) - TIMEOUT!");
+            onError(startTime.toISOString() + " Fetching language metadata ('" + fetchPoint + "') ...\n" + new Date(Date.now()).toISOString() + " ERROR: Request took too long (max. allowed time: " + this.#timeout + " ms) - TIMEOUT!");
         }, this.#timeout);
 
         // TODO: Implement real API call
@@ -65,5 +65,21 @@ class API{
                 onSuccess(data);
             }
         });
+    }
+
+    /**
+     * Saves language metadata to the IndexedDB database.
+     * @param {LanguageMeta} meta The language metadata to save.
+     * @param {function()} onSuccess The callback function to call on success.
+     * @param {function(string)} onError The callback function to call on error.
+     */
+    saveLanguageMeta(meta, onSuccess, onError){
+        let timedOut = false;
+        const startTime = new Date(Date.now());
+        const timeoutId = window.setTimeout(() => {
+            timedOut = true;
+            onError(startTime.toISOString() + " Saving language metadata ...\n" + new Date(Date.now()).toISOString() + " ERROR: Call took too long (max. allowed time: " + this.#timeout + " ms) - TIMEOUT!");
+        }, this.#timeout);
+        // TODO: Implement saving to IndexedDB
     }
 }

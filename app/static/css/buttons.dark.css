@@ -45,3 +45,27 @@ button.cyan{
     background:linear-gradient(rgb(46, 162, 162) 45%, rgb(33, 132, 132) 45%, rgb(8, 135, 135));
     border-color: rgb(22, 98, 98);
 }
+
+button.wicon::before{
+    background: linear-gradient(rgb(23, 23, 23) 45%, rgb(15, 15, 15) 45%, rgb(0, 0, 0));
+}
+
+button.wicon.red::before{
+    background:linear-gradient(rgb(100, 26, 26) 45%, rgb(87, 17, 17) 45%, rgb(68, 3, 3));
+}
+
+button.wicon.yellow::before{
+    background:linear-gradient(rgb(108, 108, 23) 45%, rgb(83, 83, 12) 45%, rgb(46, 46, 1));
+}
+
+button.wicon.green::before{
+    background:linear-gradient(rgb(21, 113, 21) 45%, rgb(5, 49, 5) 45%, rgb(0, 35, 0));
+}
+
+button.wicon.blue::before{
+    background:linear-gradient(rgb(18, 18, 98) 45%, rgb(8, 8, 71) 45%, rgb(0, 0, 32));
+}
+
+button.wicon.cyan::before{
+    background:linear-gradient(rgb(20, 103, 103) 45%, rgb(6, 55, 55) 45%, rgb(1, 43, 43));
+}

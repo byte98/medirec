@@ -20,6 +20,13 @@
 class Debug{
 
     /**
+     * List of languages, which were already fetched from the API.
+     * @type {Array<LanguageMeta>}
+     * @private
+     */
+    static #fetchedLangs  = [];
+
+    /**
      * Waits for a random time and then calls the given method.
      * @param {function} method Method, which is called after waiting.
      * @param {number} min Minimum time to wait in milliseconds.
@@ -105,7 +112,7 @@ class Debug{
      * @param {boolean} exclusive Flag, whether generated data should be exclusive (no duplicates) or not. !WARNING! This flag may lead to infinite loop if the range of min and max is too high and exclusive is set to true.
      * @returns {Array<LanguageMeta>} The generated array of language metadata.
      */
-    static #generateLanguageMetadata(min, max, exclusive = false){
+    static #generateLanguageMetadatas(min, max, exclusive = false){
         const reti = [];
         const count = Debug.#randomInteger(min, max);
         for (let i = 0; i < count; i++){
@@ -137,8 +144,43 @@ class Debug{
      */
     static fetchLanguageMetadata(callback){
         Debug.#waitFor(() => {
-            const data = Debug.#generateLanguageMetadata(8, 16, true);
+            const data = Debug.#generateLanguageMetadatas(8, 16, true);
             callback(data);
         });
+    }
+
+    /**
+     * Method, which simulates saving language metadata to the IndexedDB database.
+     * @param {LanguageMeta} meta The language metadata to save.
+     * @param {function()} callback The callback function to call on success.
+     */
+    static saveLanguageMetadata(meta, callback){
+        Debug.#waitFor(() => {
+            let newMeta = [];
+            for (const m of Debug.#fetchedLangs){
+                if (m.code !== meta.code){
+                    newMeta.push(m);
+                }
+            }
+            newMeta.push(meta);
+            Debug.#fetchedLangs = newMeta;
+            callback();
+        });
+    }
+
+    /**
+     * Resolves the metadata for a given language code.
+     * @param {string} code The language code to resolve.
+     * @returns {LanguageMeta|null} The resolved language metadata, or null if not found.
+     */
+    static resolveMetadata(code){
+        let reti = null;
+        for (const meta of Debug.#fetchedLangs){
+            if (meta.code === code){
+                reti = meta;
+                break;
+            }
+        }
+        return reti;
     }
 }

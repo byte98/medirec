@@ -73,7 +73,7 @@ body{
  * General content hiding
  */
 .dark-only{
-    display: initial !important;
+    display: unset !important;
 }
 
 .light-only{

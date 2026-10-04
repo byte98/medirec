@@ -1,0 +1,113 @@
+/**
+ * MediRec - simple web application to save some basic medical records.
+ * Copyright (C) 2026 Jiri Skoda <developer@skodaj.cz>
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 2 of the License.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
+/**
+ * General styling
+ */
+ body{
+    font-size: 1.1rem;
+ }
+
+/**
+ * Main header style
+ */
+ #title h1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+ }
+
+ h1{
+    font-size: 28pt;
+ }
+
+ h1 > img{
+    width: 36pt;
+    height: 36pt;
+ }
+
+ h2{
+    font-size: 21pt;
+ }
+
+
+/**
+ * Navigation styling
+ */
+ nav{
+    margin-left: -1.25rem;
+    margin-top: -1.25rem;
+    margin-bottom: 2rem;
+    width: calc(100% - 1rem);
+    padding-left: 0.5rem;
+    padding-top: 0.5rem;
+    padding-right: 0.5rem;
+    position: fixed;
+    z-index: 100;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: calc(100% - 2rem);
+ }
+nav > ul{
+    gap: 0;
+    flex-direction: column;
+    padding: 0;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+nav > ul > li{
+    width: 100%;
+}
+
+nav > ul > li > button{
+    padding: 1rem 2rem 1rem 2rem;
+    width: 100%;
+}
+
+/**
+ * Content styling
+ */
+
+ main > section{
+    height: calc(100dvh - 48pt - 2rem - 1.25rem);
+ }
+
+ main > section > h2{
+    margin-top: 2rem;
+ }
+
+/**
+ * General content hiding
+ */
+.tablet-only{
+    display: none !important;
+}
+
+.mobile-only{
+    display: unset !important;
+}
+
+.desktop-only{
+    display: none !important;
+}
+
+.not-mobile{
+    display: none !important;
+}

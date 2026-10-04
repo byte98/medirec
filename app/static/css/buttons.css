@@ -67,3 +67,66 @@ button:active{
     transform: scale(0.95);
     filter: invert(0.2);
 }
+
+button.wicon {
+    position: relative;
+    padding-left: calc(2rem + 1rem + 0.5rem);
+}
+
+button.wicon::before {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: calc(2rem + 0.5rem + 0.5rem);
+
+    background: linear-gradient(
+        rgb(119, 119, 119) 45%,
+        rgb(99, 99, 99) 45%,
+        rgb(68, 68, 68)
+    );
+
+    border-radius: 0.25rem 0 0 0.25rem;
+}
+
+button.wicon > .icon {
+    position: absolute;
+    left: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+
+    z-index: 1;
+
+    color: white;
+    font-size: 2rem;
+}
+
+button.wicon.red::before{
+    background:linear-gradient(rgb(169, 73, 73) 45%, rgb(136, 53, 53) 45%, rgb(124, 25, 25));
+}
+
+button.wicon.yellow::before{
+    background:linear-gradient(rgb(133, 133, 72) 45%, rgb(103, 103, 39) 45%, rgb(75, 75, 19));
+}
+
+button.wicon.green::before{
+    background:linear-gradient(rgb(78, 160, 78) 45%, rgb(35, 110, 35) 45%, rgb(16, 93, 16));
+}
+
+button.wicon.blue::before{
+    background:linear-gradient(rgb(72, 72, 167) 45%, rgb(43, 43, 135) 45%, rgb(22, 22, 98));
+}
+
+button.wicon.cyan::before{
+    background:linear-gradient(rgb(48, 140, 140) 45%, rgb(23, 108, 108) 45%, rgb(7, 77, 77));
+}
+
+button > .chevron{
+    float: right;
+    font-size: 1.15rem;
+    margin-left: 1rem;
+    vertical-align: middle;
+}

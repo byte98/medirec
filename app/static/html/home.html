@@ -26,9 +26,14 @@
     <link type="text/css" rel="stylesheet" href="../fonts/ubuntumono.css">
     <link type="text/css" rel="stylesheet" href="../css/dialog.css">
     <link type="text/css" rel="stylesheet" href="../css/dialog.dark.css" media="(prefers-color-scheme: dark)">
-    <link type="text/css" rel="stylesheet" href="../css/home.css">
-    <link type="text/css" rel="stylesheet" href="../css/home.dark.css" media="(prefers-color-scheme: dark)">
+    <link type="text/css" rel="stylesheet" href="../css/medirec.css">
+    <link type="text/css" rel="stylesheet" href="../css/medirec.dark.css" media="(prefers-color-scheme: dark)">
+    <link type="text/css" rel="stylesheet" href="../css/medirec.tablet.css" media="(min-width: 768px) and (max-width: 1024px)">
+    <link type="text/css" rel="stylesheet" href="../css/medirec.mobile.css" media="(max-width: 767px)">
     <link type="text/css" rel="stylesheet" href="../css/loader.css">
+    <link type="text/css" rel="stylesheet" href="../css/home.css">
+    <link type="text/css" rel="stylesheet" href="../css/home.tablet.css" media="(min-width: 768px) and (max-width: 1024px)">
+    <link type="text/css" rel="stylesheet" href="../css/home.mobile.css" media="(max-width: 767px)">
     <link type="text/css" rel="stylesheet" href="../css/buttons.css">
     <link type="text/css" rel="stylesheet" href="../css/buttons.dark.css" media="(prefers-color-scheme: dark)">
     <title data-phrase="medical_records">Medical records</title>
@@ -38,11 +43,12 @@
     <script type="text/javascript" src="../js/languagemeta.js" defer></script>
     <script type="text/javascript" src="../js/debug.js" defer></script>
     <script type="text/javascript" src="../js/api.js" defer></script>
+    <script type="text/javascript" src="../js/medirec.js" defer></script>
     <script type="text/javascript" src="../js/home.js" defer></script>
 
 </head>
 <body>    
-    <section id="dialogs">
+    <section id="dialogs" class="hidden">
     </section>
     <section id="title">
         <a href="./home.html">
@@ -60,7 +66,46 @@
             <h1><img src="../medirec.png" alt="Logo"><span data-phrase="medical_records">Medical records</span></h1>
         </a>
         <section id="content">
-            
+            <nav>
+                <ul>
+                    <li class="mobile-only">
+                        <button class="wicon" id="menu-button">
+                            <ion-icon name="menu-sharp" class="icon"></ion-icon>
+                            <span data-phrase="clients">Menu</span>
+                            <ion-icon name="caret-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="caret-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="blue wicon">
+                            <ion-icon name="arrow-back-circle-sharp" class="icon"></ion-icon>
+                            <span data-phrase="back">Back</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="wicon">
+                            <ion-icon name="medkit-sharp" class="icon"></ion-icon>
+                            <span data-phrase="health_insurance_companies">Health insurance companies</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="wicon cyan">
+                            <ion-icon name="person-add-sharp" class="icon"></ion-icon>
+                            <span data-phrase="new_client">New client</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button id="language-switch" class="wicon">
+                            <span data-phrase="current_language">Current language</span>
+                            <ion-icon name="caret-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="caret-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            <h2 data-prase="registered_clients">
+                Registered clients
+            </h2>
         </section>
     </main>
 </body>
