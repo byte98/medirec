@@ -46,3 +46,33 @@ nav > ul > li > button{
 .desktop-only{
     display: none !important;
 }
+
+/**
+ * Language switch sizing
+ */
+.language-menu > ul > li{
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+/**
+ * Forms styling
+ */
+
+form{
+    width: 66%;
+}
+
+ input[type="text"],
+ input[type="password"],
+ input[type="email"],
+ input[type="number"],
+ input[type="date"],
+ input[type="datetime-local"],
+ input[type="time"],
+ input[type="month"],
+ input[type="week"],
+ input[type="color"],
+ select,
+ textarea{
+    padding: 0.5rem;
+ }

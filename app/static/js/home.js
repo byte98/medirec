@@ -22,19 +22,66 @@ class Home{
      * Main function of the home page.
      */
     static  main(){        
-        const api = new API("/api", 8000);
-        const ui = new UI(
-            document.querySelector("#dialogs"),
-            document.querySelector("#title"),
-            document.querySelector("main")
-        );
+        window.location.hash = "";
+        // Navigation handling
+        const showSection = (sectionId = "") => {
+            const realId = sectionId == "" ? "content" : sectionId;
+            const sections = document.querySelectorAll("main > section");
+            const sectionExists = Array.from(sections).some((section) => section.id == realId);
+            if(sectionExists ===  true){
+                for(const section of sections){
+                    if(section.id == realId){
+                        section.classList.remove("hidden");
+                    }else{
+                        section.classList.add("hidden");
+                    }
+                }
+            }
+        }
+        window.addEventListener("hashchange", (event) => {
+            const hash = window.location.hash;
+            const sectionId = hash.length > 1 ? hash.substring(1) : "";
+            showSection(sectionId);
+        });
+
+        const api = Medirec.api;
+        const ui = Medirec.ui;
+        ui.lockLoader();
         api.fetchLanguageMeta(
             (languageMeta) => {
-                console.log(languageMeta);
-                ui.hidePreloader();
-                ui.showContent();
+                // TODO: Implement language updating...
+                api.saveLanguageMetas(languageMeta, () => {
+                    ui.unlockLoader();
+                    Medirec.loadLanguages();
+                },
+                (error) => {
+                    ui.unlockLoader();
+                    ui.hideContent();
+                    ui.showPreloader();
+                    ui.hidePreloaderAnimation();
+                    ui.showDialog(
+                        "error",
+                        "Start of the application failed!",
+                        "Application couldn't start - translation service failed.\nTry it again later, please.\nIf the problem persists, please contact the administrator.",
+                        error,
+                        [
+                            [
+                                () => {window.location.reload();},
+                                "Try again",
+                                "refresh-sharp"
+                            ]
+                        ],
+                        true,
+                        0
+                    );
+                });
+                
+                
+                
             },
             (error) => {
+                ui.unlockLoader();
+                ui.hidePreloaderAnimation();
                 ui.showDialog(
                     "error",
                     "Start of the application failed!",

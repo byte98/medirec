@@ -48,8 +48,8 @@ class LanguageMeta{
     #version;
 
     /**
-     * Flag representing the language.
-     * @type {SVGElement}
+     * Path to the flag representing the language.
+     * @type {string}
      * @private
      */
     #flag;
@@ -60,7 +60,7 @@ class LanguageMeta{
      * @param {string} name Name of the language.
      * @param {string} nativeName Native name of the language.
      * @param {string} version Version of the language metadata.
-     * @param {SVGElement} flag Flag representing the language.
+     * @param {string} flag Path to the flag representing the language.
      */
     constructor(code, name, nativeName, version, flag){
         this.#code = code;
@@ -104,7 +104,7 @@ class LanguageMeta{
 
     /**
      * Gets the flag representing the language.
-     * @returns {SVGElement} Flag representing the language.
+     * @returns {string} Path to the flag representing the language.
      */
     get flag(){
         return this.#flag;

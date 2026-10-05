@@ -27,12 +27,19 @@ class Debug{
     static #fetchedLangs  = [];
 
     /**
+     * List of health insurance companies, which were already fetched from the API.
+     * @type {Array<HealthInsuranceCompany>}
+     * @private
+     */
+    static #fetchedHICs = [];
+
+    /**
      * Waits for a random time and then calls the given method.
      * @param {function} method Method, which is called after waiting.
      * @param {number} min Minimum time to wait in milliseconds.
      * @param {number} max Maximum time to wait in milliseconds.
      */
-    static #waitFor(method, min = 2000, max = 8000){
+    static #waitFor(method, min = 1000, max = 4000){
         const wait = Math.floor(Math.random() * (max - min + 1) + min);
         setTimeout(() => {
             method();
@@ -110,9 +117,10 @@ class Debug{
      * @param {number} min Minimum number of languages to generate.
      * @param {number} max Maximum number of languages to generate.
      * @param {boolean} exclusive Flag, whether generated data should be exclusive (no duplicates) or not. !WARNING! This flag may lead to infinite loop if the range of min and max is too high and exclusive is set to true.
-     * @returns {Array<LanguageMeta>} The generated array of language metadata.
+     * @param {LanguageMeta[]} include Array of language metadata to include in the generated array.
+     * @returns {LanguageMeta[]} The generated array of language metadata.
      */
-    static #generateLanguageMetadatas(min, max, exclusive = false){
+    static #generateLanguageMetadatas(min, max, exclusive = false, include = []){
         const reti = [];
         const count = Debug.#randomInteger(min, max);
         for (let i = 0; i < count; i++){
@@ -135,6 +143,18 @@ class Debug{
                 reti.push(meta);
             }
         }
+        for (const m of include){
+            let exists = false;
+            for (const r of reti){
+                if (r.code === m.code){
+                    exists = true;
+                    break;
+                }
+            }
+            if (exists == false){
+                reti.push(m);
+            }
+        }
         return reti;
     }
 
@@ -144,7 +164,7 @@ class Debug{
      */
     static fetchLanguageMetadata(callback){
         Debug.#waitFor(() => {
-            const data = Debug.#generateLanguageMetadatas(8, 16, true);
+            const data = Debug.#generateLanguageMetadatas(8, 16, true, [new LanguageMeta("en", "English", "English", Debug.#randomString(), "../svg/gb.svg"), new LanguageMeta("cs", "Czech", "Čeština", Debug.#randomString(), "../svg/cz.svg")]);
             callback(data);
         });
     }
@@ -169,18 +189,67 @@ class Debug{
     }
 
     /**
-     * Resolves the metadata for a given language code.
-     * @param {string} code The language code to resolve.
-     * @returns {LanguageMeta|null} The resolved language metadata, or null if not found.
+     * Saves multiple language metadatas to the IndexedDB database.
+     * @param {LanguageMeta[]} metas Metadatas of the languages to save.
+     * @param {function()} callback The callback function to call on success.
      */
-    static resolveMetadata(code){
-        let reti = null;
-        for (const meta of Debug.#fetchedLangs){
-            if (meta.code === code){
-                reti = meta;
-                break;
+    static saveLanguageMetas(metas, callback){
+        Debug.#waitFor(() => {
+            let newMeta = [];
+            for (const meta of metas){
+                let exists = false;
+                for (const m of Debug.#fetchedLangs){
+                    if (m.code === meta.code){
+                        exists = true;
+                        break;
+                    }
+                }
+                if (exists == false){
+                    newMeta.push(meta);
+                }
             }
-        }
-        return reti;
+            Debug.#fetchedLangs = Debug.#fetchedLangs.concat(newMeta);
+            callback();
+        });
+    }
+
+    /**
+     * Obtains language metadata from the IndexedDB database.
+     * @param {string} code The code of the language to obtain.
+     * @param {function(LanguageMeta | null)} callback The callback function to call with the obtained metadata.
+     */
+    static getLanguageMetadata(code, callback){
+        Debug.#waitFor(() => {
+            let reti = null;
+            for (const m of Debug.#fetchedLangs){
+                if (m.code === code){
+                    reti = m;
+                    break;
+                }
+            }
+            callback(reti);
+        });
+    }
+
+    /**
+     * Loads language metadata from the IndexedDB database.
+     * @param {function(LanguageMeta[])} callback The callback function to call with the loaded metadata.
+     */
+    static loadLanguageMetadata(callback){
+        Debug.#waitFor(() => {
+            callback(Debug.#fetchedLangs);
+        });
+    }
+
+    /**
+     * Creates a new HIC (Health Insurance Company) in the system.
+     * @param {HealthInsuranceCompany} hic The HIC data to create.
+     * @param {function()} callback The callback function to call on success.
+     */
+    static createHIC(hic, callback){
+        Debug.#waitFor(() => {
+            Debug.#fetchedHICs.push(hic);
+            callback();
+        });
     }
 }

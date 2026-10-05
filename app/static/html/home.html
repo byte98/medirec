@@ -40,14 +40,27 @@
     <script type="module" src="../ionicons/ionicons.js" defer></script>
     <script type="text/javascript" src="../js/ui.js" defer></script>
     <script type="text/javascript" src="../js/dialog.js" defer></script>
-    <script type="text/javascript" src="../js/languagemeta.js" defer></script>
+    <script type="text/javascript" src="../js/model/languagemeta.js" defer></script>
+    <script type="text/javascript" src="../js/languagebase.js" defer></script>
     <script type="text/javascript" src="../js/debug.js" defer></script>
     <script type="text/javascript" src="../js/api.js" defer></script>
+    <script type="text/javascript" src="../js/languageswitch.js" defer></script>
     <script type="text/javascript" src="../js/medirec.js" defer></script>
     <script type="text/javascript" src="../js/home.js" defer></script>
+    <script type="text/javascript" src="../js/model/healthinsurancecompany.js" defer></script>
+    <script type="text/javascript" src="../js/newhic.js" defer></script>
 
 </head>
 <body>    
+    <section id="wait" class="hidden">
+        <p data-phrase="wait">Loading, please wait...</p>
+        <div class="loader" aria-label="Loading">
+            <span class="loader-dot"></span>
+            <span class="loader-dot"></span>
+            <span class="loader-dot"></span>
+            <span class="loader-dot"></span>
+        </div>
+    </section>
     <section id="dialogs" class="hidden">
     </section>
     <section id="title">
@@ -69,7 +82,7 @@
             <nav>
                 <ul>
                     <li class="mobile-only">
-                        <button class="wicon" id="menu-button">
+                        <button class="wicon menu-button">
                             <ion-icon name="menu-sharp" class="icon"></ion-icon>
                             <span data-phrase="clients">Menu</span>
                             <ion-icon name="caret-down-sharp" class="chevron"></ion-icon>
@@ -83,7 +96,7 @@
                         </button>
                     </li>
                     <li class="not-mobile">
-                        <button class="wicon">
+                        <button class="wicon" data-target="hic">
                             <ion-icon name="medkit-sharp" class="icon"></ion-icon>
                             <span data-phrase="health_insurance_companies">Health insurance companies</span>
                         </button>
@@ -95,11 +108,18 @@
                         </button>
                     </li>
                     <li class="not-mobile">
-                        <button id="language-switch" class="wicon">
-                            <span data-phrase="current_language">Current language</span>
+                        <button class="wicon language-switch">
+                            <img src="../ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag" />
+                            <span data-phrase="current_language" data-item="lang_native">Current language</span>
                             <ion-icon name="caret-down-sharp" class="chevron"></ion-icon>
                             <ion-icon name="caret-up-sharp" class="chevron hidden"></ion-icon>
                         </button>
+                        <div class="language-menu hidden">
+                            <button class="wicon mobile-only">
+                                <ion-icon name="close-sharp" class="icon"></ion-icon>
+                                <span data-phrase="close">Close</span>
+                            </button>
+                        </div>
                     </li>
                 </ul>
             </nav>
@@ -107,6 +127,118 @@
                 Registered clients
             </h2>
         </section>
+        <section id="hic" class="hidden">
+            <nav>
+                <ul>
+                    <li class="mobile-only">
+                        <button class="wicon menu-button">
+                            <ion-icon name="menu-sharp" class="icon"></ion-icon>
+                            <span data-phrase="clients">Menu</span>
+                            <ion-icon name="caret-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="caret-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="blue wicon" data-target="">
+                            <ion-icon name="arrow-back-circle-sharp" class="icon"></ion-icon>
+                            <span data-phrase="back">Back</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="cyan wicon" data-target="new-hic">
+                            <ion-icon name="add-circle-sharp" class="icon"></ion-icon>
+                            <span data-phrase="new_hic">New health insurance company</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="wicon language-switch">
+                            <img src="../ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag" />
+                            <span data-phrase="current_language" data-item="lang_native">Current language</span>
+                            <ion-icon name="caret-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="caret-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                        <div class="language-menu hidden">
+                            <button class="wicon mobile-only">
+                                <ion-icon name="close-sharp" class="icon"></ion-icon>
+                                <span data-phrase="close">Close</span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <h2 data-phrase="health_insurance_companies">
+                Health insurance companies
+            </h2>
+
+        </section>
+        <section id="new-hic" class="hidden">
+            <nav>
+                <ul>
+                    <li class="mobile-only">
+                        <button class="wicon menu-button">
+                            <ion-icon name="menu-sharp" class="icon"></ion-icon>
+                            <span data-phrase="clients">Menu</span>
+                            <ion-icon name="caret-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="caret-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="blue wicon" data-target="hic">
+                            <ion-icon name="arrow-back-circle-sharp" class="icon"></ion-icon>
+                            <span data-phrase="back">Back</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="wicon" data-target="hic">
+                            <ion-icon name="close-circle-sharp" class="icon"></ion-icon>
+                            <span data-phrase="cancel">Cancel</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="wicon green" id="save-hic">
+                            <ion-icon name="save-sharp" class="icon"></ion-icon>
+                            <span data-phrase="save">Save</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="wicon language-switch">
+                            <img src="../ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag" />
+                            <span data-phrase="current_language" data-item="lang_native">Current language</span>
+                            <ion-icon name="caret-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="caret-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                        <div class="language-menu hidden">
+                            <button class="wicon mobile-only">
+                                <ion-icon name="close-sharp" class="icon"></ion-icon>
+                                <span data-phrase="close">Close</span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <h2 data-phrase="new_hic">
+                New health insurance company
+                <form id="new-hic-form">
+                    <label for="new-hic-abbr" data-phrase="abbr">Abbreviation</label>
+                    <input type="text" id="new-hic-abbr" name="new-hic-abbr" required />
+                    <label for="new-hic-name" data-phrase="name">Name</label>
+                    <input type="text" id="new-hic-name" name="new-hic-name" required />
+                    <label for="new-hic-code" data-phrase="code">Code</label>
+                    <input type="text" id="new-hic-code" name="new-hic-code" required />
+                    <label for="new-hic-note" data-phrase="note">Note</label>
+                    <textarea type="text" id="new-hic-note" name="new-hic-note"></textarea>
+                    <div class="form-buttons mobile-only">
+                        <button type="reset" class="wicon" data-target="hic">
+                            <ion-icon name="close-circle-sharp" class="icon"></ion-icon>
+                            <span data-phrase="cancel">Cancel</span>
+                        </button>
+                        <button type="submit" class="wicon green">
+                            <ion-icon name="save-sharp" class="icon"></ion-icon>
+                            <span data-phrase="save">Save</span>
+                        </button>
+                    </div>
+                </form>
+            </h2>
     </main>
 </body>
 </html>

@@ -80,6 +80,110 @@ class API{
             timedOut = true;
             onError(startTime.toISOString() + " Saving language metadata ...\n" + new Date(Date.now()).toISOString() + " ERROR: Call took too long (max. allowed time: " + this.#timeout + " ms) - TIMEOUT!");
         }, this.#timeout);
+
         // TODO: Implement saving to IndexedDB
+        Debug.saveLanguageMetadata(meta, () => {
+            if (timedOut == false){
+                window.clearTimeout(timeoutId);
+                onSuccess();
+            }
+        });
+    }
+
+    /**
+     * Saves multiple language metadatas to the IndexedDB database.
+     * @param {LanguageMeta[]} metas Metadatas of the languages to save.
+     * @param {function()} onSuccess The callback function to call on success.
+     * @param {function(string)} onError The callback function to call on error.
+     */
+    saveLanguageMetas(metas, onSuccess, onError){
+        let timedOut = false;
+        const startTime = new Date(Date.now());
+        const timeoutId = window.setTimeout(() => {
+            timedOut = true;
+            onError(startTime.toISOString() + " Saving multiple (" + metas.length + ") language metadata ...\n" + new Date(Date.now()).toISOString() + " ERROR: Call took too long (max. allowed time: " + this.#timeout + " ms) - TIMEOUT!");
+        }, this.#timeout);
+
+        // TODO: Implement saving to IndexedDB
+        Debug.saveLanguageMetas(metas, () => {
+            if (timedOut == false){
+                window.clearTimeout(timeoutId);
+                onSuccess();
+            }
+        });
+    }
+
+    /**
+     * Obtains language metadata from the IndexedDB database.
+     * @param {string} code The code of the language to obtain.
+     * @param {function(LanguageMeta)} onSuccess The callback function to call with the obtained metadata.
+     * @param {function(string)} onError The callback function to call with the error message in case of failure.
+     */
+    getLanguageMeta(code, onSuccess, onError){
+        let timedOut = false;
+        const startTime = new Date(Date.now());
+        const timeoutId = window.setTimeout(() => {
+            timedOut = true;
+            onError(startTime.toISOString() + " Obtaining language metadata for code '" + code + "' ...\n" + new Date(Date.now()).toISOString() + " ERROR: Call took too long (max. allowed time: " + this.#timeout + " ms) - TIMEOUT!");
+        }, this.#timeout);
+
+        // TODO: Implement real API call
+        Debug.getLanguageMetadata(code, (data) => {
+            if (timedOut == false){
+                window.clearTimeout(timeoutId);
+                if (data === null){
+                    onError(startTime.toISOString() + " Obtaining language metadata for code '" + code + "' ...\n" + new Date(Date.now()).toISOString() + " ERROR: Language metadata not found!");
+                }
+                else {
+                    onSuccess(data);
+                }
+            }
+        });
+    }
+
+    /**
+     * Loads language metadata from the IndexedDB database.
+     * @param {function(LanguageMeta[])} onSuccess The callback function to call with the loaded metadata.
+     * @param {function(string)} onError The callback function to call with the error message in case of failure.
+     */
+    loadLanguageMeta(onSuccess, onError){
+        let timedOut = false;
+        const startTime = new Date(Date.now());
+        const timeoutId = window.setTimeout(() => {
+            timedOut = true;
+            onError(startTime.toISOString() + " Loading language metadata ...\n" + new Date(Date.now()).toISOString() + " ERROR: Call took too long (max. allowed time: " + this.#timeout + " ms) - TIMEOUT!");
+        }, this.#timeout);
+
+        // TODO: Implement real API call
+        Debug.loadLanguageMetadata((data) => {
+            if (timedOut == false){
+                window.clearTimeout(timeoutId);
+                onSuccess(data);
+            }
+        });
+    }
+
+    /**
+     * Creates a new HIC (Health Insurance Company) in the system.
+     * @param {HealthInsuranceCompany} hic The HIC data to create.
+     * @param {function()} onSuccess The callback function to call on success.
+     * @param {function(string[])} onWarning The callback function to call on warning (ie. data are not valid).
+     * @param {function(string)} onError The callback function to call on error.
+     */
+    createHIC(hic, onSuccess, onWarning, onError){
+        let timedOut = false;
+        const startTime = new Date(Date.now());
+        const timeoutId = window.setTimeout(() => {
+            timedOut = true;
+            onError(startTime.toISOString() + " Creating new HIC ...\n" + new Date(Date.now()).toISOString() + " ERROR: Call took too long (max. allowed time: " + this.#timeout + " ms) - TIMEOUT!");
+        }, this.#timeout);
+
+        // TODO: Implement real API call
+        Debug.createHIC(hic, () => {
+            if (timedOut == false){
+                window.clearTimeout(timeoutId);
+                onSuccess();
+            }
+        });
     }
 }

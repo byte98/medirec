@@ -30,6 +30,11 @@ class LanguageBase{
     static COOKIE_NAME = "locale";
 
     /**
+     * Name of the parameter, which stores the current language of the application.
+     */
+    static PARAMETER_NAME = "lang";
+
+    /**
      * Default language of the application.
      */
     static DEFAULT_LANGUAGE = "en";
@@ -40,18 +45,31 @@ class LanguageBase{
      */
     static get currentLanguage(){
         let reti = LanguageBase.DEFAULT_LANGUAGE;
-        const getCookieValue = (name) => (
-        document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
-        );
-        const cookieValue = getCookieValue(LanguageBase.COOKIE_NAME);
-        if(cookieValue !== ""){
-            reti = cookieValue;
+        const getParameter = (name) => {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name) || '';
+        };
+        const parameterValue = getParameter(LanguageBase.PARAMETER_NAME);
+        if(parameterValue !== ""){
+            reti = parameterValue;
         }
         else{
-            let browserLanguage = navigator.language || navigator.userLanguage;
-            if(browserLanguage !== undefined && browserLanguage !== null && browserLanguage !== ""){
-                reti = browserLanguage;
+            const getCookieValue = (name) => (
+            document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
+            );
+            const cookieValue = getCookieValue(LanguageBase.COOKIE_NAME);
+            if(cookieValue !== ""){
+                reti = cookieValue;
             }
+            else{
+                let browserLanguage = navigator.language || navigator.userLanguage;
+                if(browserLanguage !== undefined && browserLanguage !== null && browserLanguage !== ""){
+                    reti = browserLanguage;
+                }
+            }
+        }        
+        if (reti.includes("-")) {
+            reti = reti.split("-")[0];
         }
         return reti;
     }

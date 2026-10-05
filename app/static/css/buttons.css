@@ -104,6 +104,11 @@ button.wicon > .icon {
     font-size: 2rem;
 }
 
+button.wicon > img.icon {
+    width: 2rem;
+    height: 2rem;
+}
+
 button.wicon.red::before{
     background:linear-gradient(rgb(169, 73, 73) 45%, rgb(136, 53, 53) 45%, rgb(124, 25, 25));
 }

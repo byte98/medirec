@@ -220,3 +220,192 @@ nav > ul > li > button{
 nav > ul > li:last-child{
     margin-left: auto;
 }
+
+/*
+ * Language switch styling
+ */
+.language-menu{
+    background: var(--background-color-translucent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    -moz-backdrop-filter: blur(8px);
+    position: absolute;
+    right: 1.5rem;
+    top: 5rem;
+    border-radius: 0.25rem;
+    box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.9);
+    z-index: 1000;
+    max-height: calc(100dvh - 14rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.language-menu > ul{
+    list-style-type: none;
+    padding: 0.5rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.language-menu > ul > li{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    transition: all 0.2s ease-in-out;
+    padding: 0.25rem;
+    vertical-align: middle;
+}
+
+.language-menu > ul > li:hover{
+    filter: contrast(1.5) brightness(1.5);
+    cursor: pointer;
+    background: var(--background-color);
+}
+
+.language-menu > ul > li:active{
+    filter: contrast(2) brightness(2);
+    cursor: pointer;
+    background: var(--background-color);
+}
+
+.language-menu > ul > li.selected{
+    filter: contrast(2.5) brightness(2.5);
+    background: var(--background-color);
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.language-menu > ul > li > img{
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.5rem;
+}
+
+/**
+ * Waiting screen
+ */
+#wait{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+    background: var(--background-color-translucent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    -moz-backdrop-filter: blur(8px);
+    z-index: 1024;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#wait > p{
+    font-size: 24pt;
+    font-weight: 300;
+    padding: 1rem;
+}
+
+#wait > .loader{
+    scale: 1.25;
+}
+
+/**
+ * Forms styling
+ */
+
+form{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+    padding-top: 1rem;
+}
+
+ label{
+    font-size: 14pt;
+ }
+
+ input[type="text"],
+ input[type="password"],
+ input[type="email"],
+ input[type="number"],
+ input[type="date"],
+ input[type="datetime-local"],
+ input[type="time"],
+ input[type="month"],
+ input[type="week"],
+ input[type="color"],
+ select,
+ textarea{
+    font-size: 14pt;
+    padding: 0.25rem;
+    border: 1px solid rgb(127, 127, 127);
+    border-radius: 0.25rem;
+    background: var(--background-color-translucent);
+    color: var(--text-color);
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    outline: none;
+ }
+
+ input[type="text"]:hover,
+ input[type="password"]:hover,
+ input[type="email"]:hover,
+ input[type="number"]:hover,
+ input[type="date"]:hover,
+ input[type="datetime-local"]:hover,
+ input[type="time"]:hover,
+ input[type="month"]:hover,
+ input[type="week"]:hover,
+ input[type="color"]:hover,
+ select:hover,
+ textarea:hover{
+    filter: contrast(1.5) brightness(1.5);
+    cursor: pointer;
+    outline: none;
+ }
+
+  input[type="text"]:active,
+ input[type="password"]:active,
+ input[type="email"]:active,
+ input[type="number"]:active,
+ input[type="date"]:active,
+ input[type="datetime-local"]:active,
+ input[type="time"]:active,
+ input[type="month"]:active,
+ input[type="week"]:active,
+ input[type="color"]:active,
+ select:active,
+ textarea:active{
+    filter: contrast(2) brightness(2);
+    cursor: pointer;
+    outline: none;
+ }
+
+   input[type="text"]:focus,
+ input[type="password"]:focus,
+ input[type="email"]:focus,
+ input[type="number"]:focus,
+ input[type="date"]:focus,
+ input[type="datetime-local"]:focus,
+ input[type="time"]:focus,
+ input[type="month"]:focus,
+ input[type="week"]:focus,
+ input[type="color"]:focus,
+ select:focus,
+ textarea:focus{
+    cursor: text;
+    background: var(--background-color);
+    filter: none;
+    border-color: var(--text-color);
+    outline: var(--text-color);
+ }

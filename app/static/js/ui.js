@@ -47,16 +47,40 @@ class UI{
     #content;
 
     /**
+     * Animated preloader, which is displayed during loading of the application.
+     * @type {HTMLElement}
+     * @private
+     */
+    #preloaderAnimation;
+
+    /**
+     * Simple counter, which is used to lock the preloader animation.
+     * @type {number}
+     * @private
+     */
+    #loaderLock;
+
+    /**
+     * Waiting dialog, which is displayed during waiting for some action to be completed.
+     * @type {HTMLElement}
+     * @private
+     */
+    #wait;
+
+    /**
      * Creates new wrapper for UI elements and interactions.
      * @param {HTMLElement} dialogsContainer Container, in which all dialogs are placed.
      * @param {HTMLElement} preloader Main preloader, which is displayed during loading of the application.
      * @param {HTMLElement} content Main content of the application.
+     * @param {HTMLElement} wait Waiting dialog, which is displayed during waiting for some action to be completed.
      */
-    constructor(dialogsContainer, preloader, content){
+    constructor(dialogsContainer, preloader, content, wait){
         this.#dialogsContainer = dialogsContainer;
         this.#dialogsOpen = 0;
         this.#preloader = preloader;
+        this.#preloaderAnimation = preloader.querySelector(".loader");
         this.#content = content;
+        this.#wait = wait;
     }
 
     /**
@@ -103,30 +127,100 @@ class UI{
     }
 
     /**
+     * Locks loader animation, so it will not be hidden until it is unlocked.
+     * @returns {void}
+     */
+    lockLoader(){
+        this.#loaderLock += 1;
+    }
+
+    /**
+     * Unlocks loader animation, so it will be hidden if it is not locked anymore.
+     * @returns {void}
+     */
+    unlockLoader(){
+        if (this.#loaderLock > 0){
+            this.#loaderLock -= 1;
+        }
+    }
+
+    /**
+     * Forces the loader to be unlocked, regardless of its current state.
+     * @returns {void}
+     */
+    forceUnlockLoader(){
+        this.#loaderLock = 0;
+    }
+
+    /**
      * Shows the main content of the application.
      */
     showContent(){
+        if(this.#loaderLock <= 0){
         this.#content.classList.remove("hidden");
+        }
     }
 
     /**
      * Hides the main content of the application.
      */
     hideContent(){
-        this.#content.classList.add("hidden");
+        if(this.#loaderLock <= 0){
+            this.#content.classList.add("hidden");
+        }
     }
 
     /**
      * Shows the main preloader of the application.
      */
     showPreloader(){
-        this.#preloader.classList.remove("hidden");
+        if(this.#loaderLock <= 0){
+            this.#preloader.classList.remove("hidden");
+        }
     }
 
     /**
      * Hides the main preloader of the application.
      */
     hidePreloader(){
-        this.#preloader.classList.add("hidden");
+        if(this.#loaderLock <= 0){
+            this.#preloader.classList.add("hidden");
+        }
+    }
+
+    /**
+     * Shows the animated preloader of the application.
+     * @returns {void}
+     */
+    showPreloaderAnimation(){
+        if(this.#preloaderAnimation !== null && this.#loaderLock <= 0){
+            this.#preloaderAnimation.classList.remove("hidden");
+        }
+    }
+
+    /**
+     * Hides the animated preloader of the application.
+     * @returns {void}
+     */
+    hidePreloaderAnimation(){
+        if(this.#preloaderAnimation !== null && this.#loaderLock <= 0){
+            this.#preloaderAnimation.classList.add("hidden");
+        }
+    }
+
+    /**
+     * Shows the waiting dialog, which is displayed during waiting for some action to be completed.
+     * @returns {void}
+     */
+    showWait(){
+        this.#wait.classList.remove("hidden");
+    }
+
+    /**
+     * Hides the waiting dialog, which is displayed during waiting for some action to be completed.
+     * @returns {void}
+     */
+    hideWait(){
+        this.#wait.classList.add("hidden");
     }
 }
