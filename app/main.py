@@ -51,10 +51,11 @@ def create_application(ini_path: Path) -> FastAPI:
     languages = LanguageService(LANGUAGE_DIRECTORY, config.server.root_path)
     reports = ReportService(storage, languages, config.medirec.reports, APP_VERSION, STATIC_DIRECTORY)
     api = MediRecAPI(storage, languages, reports)
+    application_root_path = "" if config.server.root_path == "/" else config.server.root_path
     application = FastAPI(
         title="MediRec",
         version=APP_VERSION,
-        root_path=config.server.root_path,
+        root_path=application_root_path,
         docs_url=None,
         redoc_url=None,
         openapi_url=None,
