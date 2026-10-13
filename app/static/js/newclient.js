@@ -167,10 +167,11 @@ class NewClient {
         measurements.sort((a, b) => {
             const dateA = new Date(`${a.date}T${a.time}`);
             const dateB = new Date(`${b.date}T${b.time}`);
-            return dateB.getTime() - dateA.getTime();
+            return dateA.getTime() - dateB.getTime();
         });
 
         for (const measurement of measurements) {
+            console.log(measurement);
             const summary = document.createElement("tr");
             summary.className = "measurement-summary";
             summary.innerHTML = [
