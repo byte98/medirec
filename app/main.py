@@ -32,7 +32,7 @@ from .i18n.service import LanguageService
 from .storage.excel import WorkbookStorage
 from .reporting.service import ReportService
 
-APP_VERSION = "2.2.0"
+APP_VERSION = "2.2.2"
 BASE_DIRECTORY = Path(__file__).resolve().parent
 STATIC_DIRECTORY = BASE_DIRECTORY / "static"
 LANGUAGE_DIRECTORY = STATIC_DIRECTORY / "languages"
@@ -51,7 +51,14 @@ def create_application(ini_path: Path) -> FastAPI:
     languages = LanguageService(LANGUAGE_DIRECTORY)
     reports = ReportService(storage, languages, config.medirec.reports, APP_VERSION, STATIC_DIRECTORY)
     api = MediRecAPI(storage, languages, reports)
-    application = FastAPI(title="MediRec", version=APP_VERSION, docs_url=None, redoc_url=None, openapi_url=None)
+    application = FastAPI(
+        title="MediRec",
+        version=APP_VERSION,
+        root_path=config.server.root_path,
+        docs_url=None,
+        redoc_url=None,
+        openapi_url=None,
+    )
     application.mount("/static", StaticFiles(directory=STATIC_DIRECTORY), name="static")
     application.include_router(api.router)
 

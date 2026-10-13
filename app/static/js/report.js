@@ -266,7 +266,7 @@ class Report {
 
                 const information = document.createElement("div");
                 const link = document.createElement("a");
-                link.href = `/api/clients/${encodeURIComponent(client.identifier)}/reports/${encodeURIComponent(report.name)}`;
+                link.href = `api/clients/${encodeURIComponent(client.identifier)}/reports/${encodeURIComponent(report.name)}`;
                 link.textContent = report.name;
                 link.target = "_blank";
                 information.appendChild(link);

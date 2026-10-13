@@ -31,7 +31,11 @@ main > section {
 
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    background: var(--background-color);
     font-size: 1rem;
 }
 
@@ -39,11 +43,20 @@ th,
 td {
     padding: 0.65rem 0.75rem;
     text-align: left;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+    border-bottom: 1px solid color-mix(in srgb, var(--text-color) 18%, transparent);
 }
 
-th {
+thead th {
     font-weight: 600;
+    border-bottom: 2px solid var(--text-color);
+}
+
+tbody tr:nth-child(even) {
+    background-color: color-mix(in srgb, var(--background-color) 94%, var(--text-color));
+}
+
+tbody tr:last-child > td {
+    border-bottom: 0;
 }
 
 .expandable-row {

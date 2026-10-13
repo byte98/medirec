@@ -20,36 +20,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="image/x-icon" rel="icon" href="/static/favicon.ico">
-    <link type="text/css" rel="stylesheet" href="/static/fonts/selawik.css">
-    <link type="text/css" rel="stylesheet" href="/static/fonts/ubuntumono.css">
-    <link type="text/css" rel="stylesheet" href="/static/css/dialog.css">
-    <link type="text/css" rel="stylesheet" href="/static/css/dialog.dark.css" media="(prefers-color-scheme: dark)">
-    <link type="text/css" rel="stylesheet" href="/static/css/medirec.css">
-    <link type="text/css" rel="stylesheet" href="/static/css/medirec.dark.css" media="(prefers-color-scheme: dark)">
-    <link type="text/css" rel="stylesheet" href="/static/css/medirec.tablet.css" media="(min-width: 768px) and (max-width: 1024px)">
-    <link type="text/css" rel="stylesheet" href="/static/css/medirec.mobile.css" media="(max-width: 767px)">
-    <link type="text/css" rel="stylesheet" href="/static/css/loader.css">
-    <link type="text/css" rel="stylesheet" href="/static/css/home.css">
-    <link type="text/css" rel="stylesheet" href="/static/css/home.dark.css" media="(prefers-color-scheme: dark)">
-    <link type="text/css" rel="stylesheet" href="/static/css/home.tablet.css" media="(min-width: 768px) and (max-width: 1024px)">
-    <link type="text/css" rel="stylesheet" href="/static/css/home.mobile.css" media="(max-width: 767px)">
-    <link type="text/css" rel="stylesheet" href="/static/css/buttons.css">
-    <link type="text/css" rel="stylesheet" href="/static/css/buttons.dark.css" media="(prefers-color-scheme: dark)">
+    <base href="/medirec/">
+    <link type="image/x-icon" rel="icon" href="static/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="static/fonts/selawik.css">
+    <link type="text/css" rel="stylesheet" href="static/fonts/ubuntumono.css">
+    <link type="text/css" rel="stylesheet" href="static/css/dialog.css">
+    <link type="text/css" rel="stylesheet" href="static/css/dialog.dark.css" media="(prefers-color-scheme: dark)">
+    <link type="text/css" rel="stylesheet" href="static/css/medirec.css">
+    <link type="text/css" rel="stylesheet" href="static/css/medirec.dark.css" media="(prefers-color-scheme: dark)">
+    <link type="text/css" rel="stylesheet" href="static/css/medirec.tablet.css" media="(min-width: 768px) and (max-width: 1024px)">
+    <link type="text/css" rel="stylesheet" href="static/css/medirec.mobile.css" media="(max-width: 767px)">
+    <link type="text/css" rel="stylesheet" href="static/css/loader.css">
+    <link type="text/css" rel="stylesheet" href="static/css/home.css">
+    <link type="text/css" rel="stylesheet" href="static/css/home.dark.css" media="(prefers-color-scheme: dark)">
+    <link type="text/css" rel="stylesheet" href="static/css/home.tablet.css" media="(min-width: 768px) and (max-width: 1024px)">
+    <link type="text/css" rel="stylesheet" href="static/css/home.mobile.css" media="(max-width: 767px)">
+    <link type="text/css" rel="stylesheet" href="static/css/buttons.css">
+    <link type="text/css" rel="stylesheet" href="static/css/buttons.dark.css" media="(prefers-color-scheme: dark)">
     <title data-phrase="medical_records">Medical records</title>
-    <script type="module" src="/static/ionicons/ionicons.js" defer></script>
-    <script type="text/javascript" src="/static/js/ui.js" defer></script>
-    <script type="text/javascript" src="/static/js/dialog.js" defer></script>
-    <script type="text/javascript" src="/static/js/model/languagemeta.js" defer></script>
-    <script type="text/javascript" src="/static/js/languagebase.js" defer></script>
-    <script type="text/javascript" src="/static/js/api.js" defer></script>
-    <script type="text/javascript" src="/static/js/languageswitch.js" defer></script>
-    <script type="text/javascript" src="/static/js/medirec.js" defer></script>
-    <script type="text/javascript" src="/static/js/home.js" defer></script>
-    <script type="text/javascript" src="/static/js/model/healthinsurancecompany.js" defer></script>
-    <script type="text/javascript" src="/static/js/newhic.js" defer></script>
-    <script type="text/javascript" src="/static/js/newclient.js" defer></script>
-    <script type="text/javascript" src="/static/js/report.js" defer></script>
+    <script type="module" src="static/ionicons/ionicons.js" defer></script>
+    <script type="text/javascript" src="static/js/ui.js" defer></script>
+    <script type="text/javascript" src="static/js/dialog.js" defer></script>
+    <script type="text/javascript" src="static/js/model/languagemeta.js" defer></script>
+    <script type="text/javascript" src="static/js/languagebase.js" defer></script>
+    <script type="text/javascript" src="static/js/api.js" defer></script>
+    <script type="text/javascript" src="static/js/languageswitch.js" defer></script>
+    <script type="text/javascript" src="static/js/medirec.js" defer></script>
+    <script type="text/javascript" src="static/js/home.js" defer></script>
+    <script type="text/javascript" src="static/js/model/healthinsurancecompany.js" defer></script>
+    <script type="text/javascript" src="static/js/newhic.js" defer></script>
+    <script type="text/javascript" src="static/js/newclient.js" defer></script>
+    <script type="text/javascript" src="static/js/report.js" defer></script>
 </head>
 <body>
     <section id="wait" class="hidden">
@@ -65,9 +66,9 @@
     <section id="dialogs" class="hidden"></section>
 
     <section id="title">
-        <a href="/">
+        <a href="./">
             <h1>
-                <img src="/static/medirec.png" alt="Logo">
+                <img src="static/medirec.png" alt="Logo">
                 <span data-phrase="medical_records">Medical records</span>
             </h1>
         </a>
@@ -80,9 +81,9 @@
     </section>
 
     <main class="hidden">
-        <a href="/">
+        <a href="./">
             <h1>
-                <img src="/static/medirec.png" alt="Logo">
+                <img src="static/medirec.png" alt="Logo">
                 <span data-phrase="medical_records">Medical records</span>
             </h1>
         </a>
@@ -118,7 +119,7 @@
                     </li>
                     <li class="not-mobile">
                         <button class="wicon language-switch" type="button">
-                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
+                            <img src="static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
                             <span data-phrase="current_language" data-item="lang_native">Current language</span>
                             <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
                             <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
@@ -176,7 +177,7 @@
                     </li>
                     <li class="not-mobile">
                         <button class="wicon language-switch" type="button">
-                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
+                            <img src="static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
                             <span data-phrase="current_language" data-item="lang_native">Current language</span>
                             <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
                             <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
@@ -239,7 +240,7 @@
                     </li>
                     <li class="not-mobile">
                         <button class="wicon language-switch" type="button">
-                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
+                            <img src="static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
                             <span data-phrase="current_language" data-item="lang_native">Current language</span>
                             <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
                             <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
@@ -307,7 +308,7 @@
                     </li>
                     <li class="not-mobile">
                         <button class="wicon language-switch" type="button">
-                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
+                            <img src="static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
                             <span data-phrase="current_language" data-item="lang_native">Current language</span>
                             <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
                             <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
@@ -382,7 +383,7 @@
                     </li>
                     <li class="not-mobile">
                         <button class="wicon language-switch" type="button">
-                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
+                            <img src="static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
                             <span data-phrase="current_language" data-item="lang_native">Current language</span>
                             <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
                             <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
@@ -462,7 +463,7 @@
                     </li>
                     <li>
                         <button class="wicon language-switch" type="button">
-                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
+                            <img src="static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
                             <span data-phrase="current_language" data-item="lang_native">Current language</span>
                             <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
                             <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
@@ -578,7 +579,7 @@
                     </li>
                     <li>
                         <button class="wicon language-switch" type="button">
-                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
+                            <img src="static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
                             <span data-phrase="current_language" data-item="lang_native">Current language</span>
                             <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
                             <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
@@ -627,7 +628,7 @@
                     </li>
                     <li class="not-mobile">
                         <button class="wicon language-switch" type="button">
-                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
+                            <img src="static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
                             <span data-phrase="current_language" data-item="lang_native">Current language</span>
                             <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
                             <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>

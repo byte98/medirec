@@ -29,6 +29,7 @@ class ServerConfig:
 
     address: str
     port: int
+    root_path: str
 
 
 @dataclass(frozen=True)
@@ -65,13 +66,18 @@ class ConfigurationLoader:
             raise FileNotFoundError(f"Configuration file not found: {path}")
         address = parser.get("server", "address", fallback="127.0.0.1")
         port = parser.getint("server", "port", fallback=8080)
+        root_path = parser.get("server", "root_path", fallback="/medirec").strip()
+        if not root_path.startswith("/"):
+            raise ValueError("Server root_path must start with '/'.")
+        if root_path != "/":
+            root_path = root_path.rstrip("/")
         workbook = Path(parser.get("medirec", "workbook"))
         reports = Path(parser.get("medirec", "reports"))
         if port < 1 or port > 65535:
             raise ValueError("Server port must be between 1 and 65535.")
         workbook = workbook.expanduser().resolve()
         reports = reports.expanduser().resolve()
-        server = ServerConfig(address=address, port=port)
+        server = ServerConfig(address=address, port=port, root_path=root_path)
         medirec = MediRecConfig(workbook=workbook, reports=reports)
         reti = AppConfig(server=server, medirec=medirec, ini_path=path.expanduser().resolve())
         return reti

@@ -742,16 +742,3 @@ input[type="search"]::-webkit-search-cancel-button {
 .report-select:hover, .report-settings select:hover { filter: brightness(1.03); cursor: pointer; }
 .report-select:active, .report-settings select:active { filter: brightness(.97); }
 .report-select-all { padding-bottom: .65rem; border-bottom: 1px solid rgba(127,127,127,.25); }
-
-table{
-    background: var(--background-color);
-    border-radius: 0.25rem;
-}
-
-table thead tr{
-    border-bottom: 1px solid var(--text-color) !important;
-}
-
-table tbody tr:nth-child(even){
-    filter: brightness(1.05) !important;
-}

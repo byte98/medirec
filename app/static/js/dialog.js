@@ -80,11 +80,11 @@ class Dialog{
      * @private
      */
     static #sounds = {
-        "error": new Audio("/static/mp3/error.mp3"),
-        "info": new Audio("/static/mp3/info.mp3"),
-        "question": new Audio("/static/mp3/question.mp3"),
-        "success": new Audio("/static/mp3/success.mp3"),
-        "warning": new Audio("/static/mp3/warning.mp3")
+        "error": new Audio("static/mp3/error.mp3"),
+        "info": new Audio("static/mp3/info.mp3"),
+        "question": new Audio("static/mp3/question.mp3"),
+        "success": new Audio("static/mp3/success.mp3"),
+        "warning": new Audio("static/mp3/warning.mp3")
     };
 
     /**

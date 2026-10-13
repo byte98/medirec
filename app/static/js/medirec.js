@@ -36,7 +36,7 @@ class Medirec {
             document.querySelector("main"),
             document.querySelector("#wait")
         );
-        Medirec.#api = new API("/api");
+        Medirec.#api = new API("api");
 
         for (const button of document.querySelectorAll(".menu-button")) {
             button.addEventListener("click", (event) => {

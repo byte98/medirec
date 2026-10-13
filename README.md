@@ -55,6 +55,7 @@ MediRec reads its configuration from an INI file. The configuration file can be 
 |---|---|---|
 | `[server]` | `address` | Address on which the application accepts HTTP requests. For example, `0.0.0.0` accepts connections on all interfaces, while `127.0.0.1` accepts local connections only. |
 | `[server]` | `port` | TCP port on which the application listens. No other application should use this port. |
+| `[server]` | `root_path` | External URL prefix used behind a reverse proxy. For this deployment, use `/medirec`. |
 | `[medirec]` | `workbook` | Path to the XLSX workbook used as the MediRec database. |
 | `[medirec]` | `reports` | Path to the directory in which generated reports are stored. |
 
@@ -64,6 +65,7 @@ An example configuration is provided in [`medirec.ini.example`](medirec.ini.exam
 [server]
 address=127.0.0.1
 port=8080
+root_path=/medirec
 
 [medirec]
 workbook=/var/lib/medirec/medirec.xlsx
@@ -192,7 +194,16 @@ Generated reports have their own **Report history** section for the selected cli
 
 ## Additional notes
 
-MediRec is suitable for running behind a web server such as Apache HTTP Server. If the application is exposed outside a trusted local network, it should be protected by an appropriate reverse proxy, HTTPS and authentication/authorization.
+MediRec is intended to be accessed through Apache at `http://server.local/medirec/`. The application listens on `127.0.0.1` and Apache strips the `/medirec/` prefix when proxying requests. Enable Apache modules `proxy` and `proxy_http`, then add the following directives inside the appropriate `<VirtualHost>` block:
+
+```apache
+ProxyPreserveHost On
+RedirectMatch 301 ^/medirec$ /medirec/
+ProxyPass        /medirec/ http://127.0.0.1:8080/
+ProxyPassReverse /medirec/ http://127.0.0.1:8080/
+```
+
+Keep `root_path=/medirec` in the INI file. The application frontend uses this prefix for static resources and API requests. To make MediRec accessible only through Apache, keep `address=127.0.0.1`; do not bind the application to `0.0.0.0` or another externally reachable interface. If the application is exposed beyond a trusted local network, configure HTTPS and suitable authentication/authorization at the proxy.
 
 It is also recommended to run MediRec as a system service so that it starts automatically after the device boots. The exact service configuration depends on the Linux distribution and deployment layout.
 

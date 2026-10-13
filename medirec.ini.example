@@ -6,6 +6,9 @@
 address=127.0.0.1
 port=8080
 
+# External URL prefix when served through Apache. Keep this in sync with the proxy path.
+root_path=/medirec
+
 [medirec]
 workbook=/var/lib/medirec/medirec.xlsx
 reports=/var/lib/medirec/reports
