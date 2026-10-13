@@ -60,13 +60,17 @@ def create_application(ini_path: Path) -> FastAPI:
         openapi_url=None,
     )
 
+    root_path = config.server.root_path.rstrip("/")
     application.mount("/static", StaticFiles(directory=STATIC_DIRECTORY), name="static")
+    if root_path:
+        application.mount(f"{root_path}/static", StaticFiles(directory=STATIC_DIRECTORY), name="static-prefixed")
     application.include_router(api.router)
+    if root_path:
+        application.include_router(api.router, prefix=root_path)
 
     @application.get("/", include_in_schema=False)
     async def index() -> HTMLResponse:
         """Serve the main MediRec page."""
-        root_path = config.server.root_path.rstrip("/")
         asset_prefix = f"{root_path}/" if root_path else "/"
         content = (STATIC_DIRECTORY / "html" / "home.html").read_text(encoding="utf-8")
         content = content.replace('href="static/', 'href="__ASSET_PREFIX__static/')
@@ -76,11 +80,17 @@ def create_application(ini_path: Path) -> FastAPI:
         reti = HTMLResponse(content=content)
         return reti
 
+    if root_path:
+        application.add_api_route(f"{root_path}/", index, methods=["GET"], include_in_schema=False)
+
     @application.get("/favicon.ico", include_in_schema=False)
     async def favicon() -> FileResponse:
         """Serve the application icon."""
         reti = FileResponse(STATIC_DIRECTORY / "favicon.ico")
         return reti
+
+    if root_path:
+        application.add_api_route(f"{root_path}/favicon.ico", favicon, methods=["GET"], include_in_schema=False)
 
     application.state.config = config
     application.state.storage = storage
