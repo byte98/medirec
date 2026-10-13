@@ -1,57 +1,57 @@
 <!--
  MediRec - simple web application to save some basic medical records.
  Copyright (C) 2026 Jiri Skoda <developer@skodaj.cz>
- 
+
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation; version 2 of the License.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License along
  with this program; if not, write to the Free Software Foundation, Inc.,
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="image/x-icon" rel="icon" href="../favicon.ico">
-    <link type="text/css" rel="stylesheet" href="../fonts/selawik.css">
-    <link type="text/css" rel="stylesheet" href="../fonts/ubuntumono.css">
-    <link type="text/css" rel="stylesheet" href="../css/dialog.css">
-    <link type="text/css" rel="stylesheet" href="../css/dialog.dark.css" media="(prefers-color-scheme: dark)">
-    <link type="text/css" rel="stylesheet" href="../css/medirec.css">
-    <link type="text/css" rel="stylesheet" href="../css/medirec.dark.css" media="(prefers-color-scheme: dark)">
-    <link type="text/css" rel="stylesheet" href="../css/medirec.tablet.css" media="(min-width: 768px) and (max-width: 1024px)">
-    <link type="text/css" rel="stylesheet" href="../css/medirec.mobile.css" media="(max-width: 767px)">
-    <link type="text/css" rel="stylesheet" href="../css/loader.css">
-    <link type="text/css" rel="stylesheet" href="../css/home.css">
-    <link type="text/css" rel="stylesheet" href="../css/home.tablet.css" media="(min-width: 768px) and (max-width: 1024px)">
-    <link type="text/css" rel="stylesheet" href="../css/home.mobile.css" media="(max-width: 767px)">
-    <link type="text/css" rel="stylesheet" href="../css/buttons.css">
-    <link type="text/css" rel="stylesheet" href="../css/buttons.dark.css" media="(prefers-color-scheme: dark)">
+    <link type="image/x-icon" rel="icon" href="/static/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="/static/fonts/selawik.css">
+    <link type="text/css" rel="stylesheet" href="/static/fonts/ubuntumono.css">
+    <link type="text/css" rel="stylesheet" href="/static/css/dialog.css">
+    <link type="text/css" rel="stylesheet" href="/static/css/dialog.dark.css" media="(prefers-color-scheme: dark)">
+    <link type="text/css" rel="stylesheet" href="/static/css/medirec.css">
+    <link type="text/css" rel="stylesheet" href="/static/css/medirec.dark.css" media="(prefers-color-scheme: dark)">
+    <link type="text/css" rel="stylesheet" href="/static/css/medirec.tablet.css" media="(min-width: 768px) and (max-width: 1024px)">
+    <link type="text/css" rel="stylesheet" href="/static/css/medirec.mobile.css" media="(max-width: 767px)">
+    <link type="text/css" rel="stylesheet" href="/static/css/loader.css">
+    <link type="text/css" rel="stylesheet" href="/static/css/home.css">
+    <link type="text/css" rel="stylesheet" href="/static/css/home.dark.css" media="(prefers-color-scheme: dark)">
+    <link type="text/css" rel="stylesheet" href="/static/css/home.tablet.css" media="(min-width: 768px) and (max-width: 1024px)">
+    <link type="text/css" rel="stylesheet" href="/static/css/home.mobile.css" media="(max-width: 767px)">
+    <link type="text/css" rel="stylesheet" href="/static/css/buttons.css">
+    <link type="text/css" rel="stylesheet" href="/static/css/buttons.dark.css" media="(prefers-color-scheme: dark)">
     <title data-phrase="medical_records">Medical records</title>
-    <script type="module" src="../ionicons/ionicons.js" defer></script>
-    <script type="text/javascript" src="../js/ui.js" defer></script>
-    <script type="text/javascript" src="../js/dialog.js" defer></script>
-    <script type="text/javascript" src="../js/model/languagemeta.js" defer></script>
-    <script type="text/javascript" src="../js/languagebase.js" defer></script>
-    <script type="text/javascript" src="../js/debug.js" defer></script>
-    <script type="text/javascript" src="../js/api.js" defer></script>
-    <script type="text/javascript" src="../js/languageswitch.js" defer></script>
-    <script type="text/javascript" src="../js/medirec.js" defer></script>
-    <script type="text/javascript" src="../js/home.js" defer></script>
-    <script type="text/javascript" src="../js/model/healthinsurancecompany.js" defer></script>
-    <script type="text/javascript" src="../js/newhic.js" defer></script>
-
+    <script type="module" src="/static/ionicons/ionicons.js" defer></script>
+    <script type="text/javascript" src="/static/js/ui.js" defer></script>
+    <script type="text/javascript" src="/static/js/dialog.js" defer></script>
+    <script type="text/javascript" src="/static/js/model/languagemeta.js" defer></script>
+    <script type="text/javascript" src="/static/js/languagebase.js" defer></script>
+    <script type="text/javascript" src="/static/js/api.js" defer></script>
+    <script type="text/javascript" src="/static/js/languageswitch.js" defer></script>
+    <script type="text/javascript" src="/static/js/medirec.js" defer></script>
+    <script type="text/javascript" src="/static/js/home.js" defer></script>
+    <script type="text/javascript" src="/static/js/model/healthinsurancecompany.js" defer></script>
+    <script type="text/javascript" src="/static/js/newhic.js" defer></script>
+    <script type="text/javascript" src="/static/js/newclient.js" defer></script>
+    <script type="text/javascript" src="/static/js/report.js" defer></script>
 </head>
-<body>    
+<body>
     <section id="wait" class="hidden">
         <p data-phrase="wait">Loading, please wait...</p>
         <div class="loader" aria-label="Loading">
@@ -61,11 +61,15 @@
             <span class="loader-dot"></span>
         </div>
     </section>
-    <section id="dialogs" class="hidden">
-    </section>
+
+    <section id="dialogs" class="hidden"></section>
+
     <section id="title">
-        <a href="./home.html">
-            <h1><img src="../medirec.png" alt="Logo"><span data-phrase="medical_records">Medical records</span></h1>
+        <a href="/">
+            <h1>
+                <img src="/static/medirec.png" alt="Logo">
+                <span data-phrase="medical_records">Medical records</span>
+            </h1>
         </a>
         <div class="loader" aria-label="Loading">
             <span class="loader-dot"></span>
@@ -74,48 +78,53 @@
             <span class="loader-dot"></span>
         </div>
     </section>
+
     <main class="hidden">
-        <a href="./home.html">
-            <h1><img src="../medirec.png" alt="Logo"><span data-phrase="medical_records">Medical records</span></h1>
+        <a href="/">
+            <h1>
+                <img src="/static/medirec.png" alt="Logo">
+                <span data-phrase="medical_records">Medical records</span>
+            </h1>
         </a>
+
         <section id="content">
             <nav>
                 <ul>
                     <li class="mobile-only">
-                        <button class="wicon menu-button">
+                        <button class="wicon menu-button" type="button">
                             <ion-icon name="menu-sharp" class="icon"></ion-icon>
-                            <span data-phrase="clients">Menu</span>
-                            <ion-icon name="caret-down-sharp" class="chevron"></ion-icon>
-                            <ion-icon name="caret-up-sharp" class="chevron hidden"></ion-icon>
+                            <span data-phrase="menu">Menu</span>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
                         </button>
                     </li>
                     <li class="not-mobile">
-                        <button class="blue wicon">
+                        <button class="blue wicon" type="button" data-target="">
                             <ion-icon name="arrow-back-circle-sharp" class="icon"></ion-icon>
                             <span data-phrase="back">Back</span>
                         </button>
                     </li>
                     <li class="not-mobile">
-                        <button class="wicon" data-target="hic">
+                        <button class="wicon" type="button" data-target="hic">
                             <ion-icon name="medkit-sharp" class="icon"></ion-icon>
                             <span data-phrase="health_insurance_companies">Health insurance companies</span>
                         </button>
                     </li>
                     <li class="not-mobile">
-                        <button class="wicon cyan">
+                        <button class="cyan wicon" type="button" data-target="new-client">
                             <ion-icon name="person-add-sharp" class="icon"></ion-icon>
                             <span data-phrase="new_client">New client</span>
                         </button>
                     </li>
                     <li class="not-mobile">
-                        <button class="wicon language-switch">
-                            <img src="../ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag" />
+                        <button class="wicon language-switch" type="button">
+                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
                             <span data-phrase="current_language" data-item="lang_native">Current language</span>
-                            <ion-icon name="caret-down-sharp" class="chevron"></ion-icon>
-                            <ion-icon name="caret-up-sharp" class="chevron hidden"></ion-icon>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
                         </button>
                         <div class="language-menu hidden">
-                            <button class="wicon mobile-only">
+                            <button class="wicon mobile-only language-close" type="button">
                                 <ion-icon name="close-sharp" class="icon"></ion-icon>
                                 <span data-phrase="close">Close</span>
                             </button>
@@ -123,42 +132,57 @@
                     </li>
                 </ul>
             </nav>
-            <h2 data-prase="registered_clients">
-                Registered clients
-            </h2>
+            <h2 data-phrase="registered_clients">Registered clients</h2>
+            <div class="table-tools">
+                <input id="client-search" type="search" data-phrase-placeholder="search" placeholder="Search">
+            </div>
+            <div class="table-wrapper">
+                <table id="clients-table">
+                    <thead>
+                        <tr>
+                            <th data-phrase="surname">Surname</th>
+                            <th data-phrase="name">Name</th>
+                            <th data-phrase="date_of_birth">Date of birth</th>
+                            <th data-phrase="age">Age</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </section>
+
         <section id="hic" class="hidden">
             <nav>
                 <ul>
                     <li class="mobile-only">
-                        <button class="wicon menu-button">
+                        <button class="wicon menu-button" type="button">
                             <ion-icon name="menu-sharp" class="icon"></ion-icon>
-                            <span data-phrase="clients">Menu</span>
-                            <ion-icon name="caret-down-sharp" class="chevron"></ion-icon>
-                            <ion-icon name="caret-up-sharp" class="chevron hidden"></ion-icon>
+                            <span data-phrase="menu">Menu</span>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
                         </button>
                     </li>
                     <li class="not-mobile">
-                        <button class="blue wicon" data-target="">
+                        <button class="blue wicon" type="button" data-target="">
                             <ion-icon name="arrow-back-circle-sharp" class="icon"></ion-icon>
                             <span data-phrase="back">Back</span>
                         </button>
                     </li>
                     <li class="not-mobile">
-                        <button class="cyan wicon" data-target="new-hic">
+                        <button class="cyan wicon" type="button" data-target="new-hic">
                             <ion-icon name="add-circle-sharp" class="icon"></ion-icon>
                             <span data-phrase="new_hic">New health insurance company</span>
                         </button>
                     </li>
                     <li class="not-mobile">
-                        <button class="wicon language-switch">
-                            <img src="../ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag" />
+                        <button class="wicon language-switch" type="button">
+                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
                             <span data-phrase="current_language" data-item="lang_native">Current language</span>
-                            <ion-icon name="caret-down-sharp" class="chevron"></ion-icon>
-                            <ion-icon name="caret-up-sharp" class="chevron hidden"></ion-icon>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
                         </button>
                         <div class="language-menu hidden">
-                            <button class="wicon mobile-only">
+                            <button class="wicon mobile-only language-close" type="button">
                                 <ion-icon name="close-sharp" class="icon"></ion-icon>
                                 <span data-phrase="close">Close</span>
                             </button>
@@ -166,49 +190,62 @@
                     </li>
                 </ul>
             </nav>
-            <h2 data-phrase="health_insurance_companies">
-                Health insurance companies
-            </h2>
-
+            <h2 data-phrase="health_insurance_companies">Health insurance companies</h2>
+            <div class="table-tools">
+                <input id="hic-search" type="search" data-phrase-placeholder="search" placeholder="Search">
+            </div>
+            <div class="table-wrapper">
+                <table id="hic-table">
+                    <thead>
+                        <tr>
+                            <th data-phrase="abbreviation">Abbreviation</th>
+                            <th data-phrase="name">Name</th>
+                            <th data-phrase="code">Code</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </section>
+
         <section id="new-hic" class="hidden">
             <nav>
                 <ul>
                     <li class="mobile-only">
-                        <button class="wicon menu-button">
+                        <button class="wicon menu-button" type="button">
                             <ion-icon name="menu-sharp" class="icon"></ion-icon>
-                            <span data-phrase="clients">Menu</span>
-                            <ion-icon name="caret-down-sharp" class="chevron"></ion-icon>
-                            <ion-icon name="caret-up-sharp" class="chevron hidden"></ion-icon>
+                            <span data-phrase="menu">Menu</span>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
                         </button>
                     </li>
                     <li class="not-mobile">
-                        <button class="blue wicon" data-target="hic">
+                        <button class="blue wicon" type="button" data-target="hic">
                             <ion-icon name="arrow-back-circle-sharp" class="icon"></ion-icon>
                             <span data-phrase="back">Back</span>
                         </button>
                     </li>
                     <li class="not-mobile">
-                        <button class="wicon" data-target="hic">
+                        <button class="wicon" type="button" data-target="hic">
                             <ion-icon name="close-circle-sharp" class="icon"></ion-icon>
                             <span data-phrase="cancel">Cancel</span>
                         </button>
                     </li>
                     <li class="not-mobile">
-                        <button class="wicon green" id="save-hic">
+                        <button class="green wicon" type="submit" form="new-hic-form">
                             <ion-icon name="save-sharp" class="icon"></ion-icon>
                             <span data-phrase="save">Save</span>
                         </button>
                     </li>
                     <li class="not-mobile">
-                        <button class="wicon language-switch">
-                            <img src="../ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag" />
+                        <button class="wicon language-switch" type="button">
+                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
                             <span data-phrase="current_language" data-item="lang_native">Current language</span>
-                            <ion-icon name="caret-down-sharp" class="chevron"></ion-icon>
-                            <ion-icon name="caret-up-sharp" class="chevron hidden"></ion-icon>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
                         </button>
                         <div class="language-menu hidden">
-                            <button class="wicon mobile-only">
+                            <button class="wicon mobile-only language-close" type="button">
                                 <ion-icon name="close-sharp" class="icon"></ion-icon>
                                 <span data-phrase="close">Close</span>
                             </button>
@@ -216,29 +253,426 @@
                     </li>
                 </ul>
             </nav>
-            <h2 data-phrase="new_hic">
-                New health insurance company
-                <form id="new-hic-form">
-                    <label for="new-hic-abbr" data-phrase="abbr">Abbreviation</label>
-                    <input type="text" id="new-hic-abbr" name="new-hic-abbr" required />
-                    <label for="new-hic-name" data-phrase="name">Name</label>
-                    <input type="text" id="new-hic-name" name="new-hic-name" required />
-                    <label for="new-hic-code" data-phrase="code">Code</label>
-                    <input type="text" id="new-hic-code" name="new-hic-code" required />
-                    <label for="new-hic-note" data-phrase="note">Note</label>
-                    <textarea type="text" id="new-hic-note" name="new-hic-note"></textarea>
-                    <div class="form-buttons mobile-only">
-                        <button type="reset" class="wicon" data-target="hic">
+            <h2 data-phrase="new_hic">New health insurance company</h2>
+            <form id="new-hic-form">
+                <label for="new-hic-abbr" data-phrase="abbreviation">Abbreviation</label>
+                <input id="new-hic-abbr" name="abbreviation" type="text" required>
+                <label for="new-hic-name" data-phrase="name">Name</label>
+                <input id="new-hic-name" name="name" type="text" required>
+                <label for="new-hic-code" data-phrase="code">Code</label>
+                <input id="new-hic-code" name="code" type="text" required>
+                <label for="new-hic-notes" data-phrase="notes">Notes</label>
+                <textarea id="new-hic-notes" name="notes"></textarea>
+                <div class="form-buttons mobile-only">
+                    <button class="wicon" type="button" data-target="hic">
+                        <ion-icon name="close-circle-sharp" class="icon"></ion-icon>
+                        <span data-phrase="cancel">Cancel</span>
+                    </button>
+                    <button class="green wicon" type="submit">
+                        <ion-icon name="save-sharp" class="icon"></ion-icon>
+                        <span data-phrase="save">Save</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section id="new-client" class="hidden">
+            <nav>
+                <ul>
+                    <li class="mobile-only">
+                        <button class="wicon menu-button" type="button">
+                            <ion-icon name="menu-sharp" class="icon"></ion-icon>
+                            <span data-phrase="menu">Menu</span>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="blue wicon" type="button" data-target="">
+                            <ion-icon name="arrow-back-circle-sharp" class="icon"></ion-icon>
+                            <span data-phrase="back">Back</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="wicon" type="button" data-target="">
                             <ion-icon name="close-circle-sharp" class="icon"></ion-icon>
                             <span data-phrase="cancel">Cancel</span>
                         </button>
-                        <button type="submit" class="wicon green">
+                    </li>
+                    <li class="not-mobile">
+                        <button class="green wicon" type="submit" form="new-client-form">
                             <ion-icon name="save-sharp" class="icon"></ion-icon>
                             <span data-phrase="save">Save</span>
                         </button>
-                    </div>
-                </form>
-            </h2>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="wicon language-switch" type="button">
+                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
+                            <span data-phrase="current_language" data-item="lang_native">Current language</span>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                        <div class="language-menu hidden">
+                            <button class="wicon mobile-only language-close" type="button">
+                                <ion-icon name="close-sharp" class="icon"></ion-icon>
+                                <span data-phrase="close">Close</span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <h2 data-phrase="new_client">New client</h2>
+            <form id="new-client-form" class="form-grid">
+                <label for="client-surname" data-phrase="surname">Surname</label>
+                <input id="client-surname" name="surname" type="text" required>
+                <label for="client-name" data-phrase="name">Name</label>
+                <input id="client-name" name="name" type="text" required>
+                <label for="client-dob" data-phrase="date_of_birth">Date of birth</label>
+                <input id="client-dob" name="date_of_birth" type="date" required>
+                <label for="client-personal-id" data-phrase="personal_id">Personal ID</label>
+                <input id="client-personal-id" name="personal_id" type="text" required>
+                <label for="client-sex" data-phrase="sex">Sex</label>
+                <select id="client-sex" name="sex" required>
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                </select>
+                <label for="client-insurance" data-phrase="insurance">Insurance</label>
+                <select id="client-insurance" name="health_insurance_abbreviation" required></select>
+                <div class="form-buttons mobile-only">
+                    <button class="wicon" type="button" data-target="">
+                        <ion-icon name="close-circle-sharp" class="icon"></ion-icon>
+                        <span data-phrase="cancel">Cancel</span>
+                    </button>
+                    <button class="green wicon" type="submit">
+                        <ion-icon name="save-sharp" class="icon"></ion-icon>
+                        <span data-phrase="save">Save</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section id="client" class="hidden">
+            <nav>
+                <ul>
+                    <li class="mobile-only">
+                        <button class="wicon menu-button" type="button">
+                            <ion-icon name="menu-sharp" class="icon"></ion-icon>
+                            <span data-phrase="menu">Menu</span>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="blue wicon" type="button" data-target="">
+                            <ion-icon name="arrow-back-circle-sharp" class="icon"></ion-icon>
+                            <span data-phrase="back">Back</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="wicon" type="button" data-target="reports">
+                            <ion-icon name="document-text-sharp" class="icon"></ion-icon>
+                            <span data-phrase="reports">Reports</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="cyan wicon" type="button" data-target="new-measurement">
+                            <ion-icon name="add-circle-sharp" class="icon"></ion-icon>
+                            <span data-phrase="new_measurement">New measurement</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="wicon language-switch" type="button">
+                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
+                            <span data-phrase="current_language" data-item="lang_native">Current language</span>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                        <div class="language-menu hidden">
+                            <button class="wicon mobile-only language-close" type="button">
+                                <ion-icon name="close-sharp" class="icon"></ion-icon>
+                                <span data-phrase="close">Close</span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <h2 id="client-title"></h2>
+            <div id="client-details" class="client-details"></div>
+            <div class="table-wrapper">
+                <table id="measurements-table">
+                    <thead>
+                        <tr>
+                            <th data-phrase="date">Date</th>
+                            <th data-phrase="time">Time</th>
+                            <th data-phrase="systolic">Systolic <span class="unit">(mmHg)</span></th>
+                            <th data-phrase="diastolic">Diastolic <span class="unit">(mmHg)</span></th>
+                            <th data-phrase="pulse">Pulse <span class="unit">(bpm)</span></th>
+                            <th data-phrase="oxygen">O₂ saturation <span class="unit">(%)</span></th>
+                            <th data-phrase="height">Height <span class="unit">(cm)</span></th>
+                            <th data-phrase="weight">Weight <span class="unit">(kg)</span></th>
+                            <th data-phrase="bmi">BMI <span class="unit">(kg/m²)</span></th>
+                            <th data-phrase="notes">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="reports" class="hidden">
+            <nav>
+                <ul>
+                    <li class="mobile-only">
+                        <button class="wicon menu-button" type="button">
+                            <ion-icon name="menu-sharp" class="icon"></ion-icon>
+                            <span data-phrase="menu">Menu</span>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                    </li>
+                    <li class="mobile-only">
+                        <button class="wicon" id="report-settings-toggle" type="button">
+                            <ion-icon name="options-sharp" class="icon"></ion-icon>
+                            <span data-phrase="report_settings">Report settings</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="blue wicon" type="button" data-target="client">
+                            <ion-icon name="arrow-back-circle-sharp" class="icon"></ion-icon>
+                            <span data-phrase="back">Back</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="wicon" type="button" data-target="report-history">
+                            <ion-icon name="time-sharp" class="icon"></ion-icon>
+                            <span data-phrase="report_history">History</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="blue wicon" id="report-print" type="button">
+                            <ion-icon name="print-sharp" class="icon"></ion-icon>
+                            <span data-phrase="generate_print">Print</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="cyan wicon" id="report-download" type="button">
+                            <ion-icon name="download-sharp" class="icon"></ion-icon>
+                            <span data-phrase="generate_download">Download</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="wicon language-switch" type="button">
+                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
+                            <span data-phrase="current_language" data-item="lang_native">Current language</span>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                        <div class="language-menu hidden">
+                            <button class="wicon mobile-only language-close" type="button">
+                                <ion-icon name="close-sharp" class="icon"></ion-icon>
+                                <span data-phrase="close">Close</span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <h2 data-phrase="reports">Reports</h2>
+            <div class="report-layout">
+                <aside class="report-settings" id="report-settings-panel">
+                    <h3 data-phrase="report_settings">Report settings</h3>
+                    <form id="report-form">
+                        <div class="report-tabs" role="tablist" aria-label="Report settings categories">
+                            <button type="button" role="tab" aria-selected="true" aria-controls="report-panel-options" id="report-tab-options" data-report-tab="options">
+                                <ion-icon name="settings-sharp" aria-hidden="true"></ion-icon>
+                                <span data-phrase="report_options">Report options</span>
+                            </button>
+                            <button type="button" role="tab" aria-selected="false" aria-controls="report-panel-data" id="report-tab-data" data-report-tab="data" tabindex="-1">
+                                <ion-icon name="clipboard-sharp" aria-hidden="true"></ion-icon>
+                                <span data-phrase="report_data">Report data</span>
+                            </button>
+                            <button type="button" role="tab" aria-selected="false" aria-controls="report-panel-layout" id="report-tab-layout" data-report-tab="layout" tabindex="-1">
+                                <ion-icon name="document-sharp" aria-hidden="true"></ion-icon>
+                                <span data-phrase="page_layout">Page layout</span>
+                            </button>
+                        </div>
+                        <div id="report-panel-options" class="report-tab-panel" role="tabpanel" aria-labelledby="report-tab-options" data-report-panel="options">
+                            <fieldset>
+                                <legend data-phrase="report_options">Report options</legend>
+                                <label class="report-check"><input type="checkbox" name="include_personal_data" checked> <span data-phrase="include_personal_data">Include personal data</span></label>
+                                <label class="report-check"><input type="checkbox" name="include_header" checked> <span data-phrase="include_header">Include header</span></label>
+                                <label class="report-check"><input type="checkbox" name="include_footer" checked> <span data-phrase="include_footer">Include footer</span></label>
+                                <label class="report-check"><input type="checkbox" name="include_indicators" checked> <span data-phrase="include_indicators">Include indicators</span></label>
+                                <label for="report-language" data-phrase="report_language">Language of the report</label>
+                                <div class="report-select-wrap"><ion-icon name="language-sharp" aria-hidden="true"></ion-icon><select id="report-language" name="language" class="report-select"></select></div>
+                            </fieldset>
+                        </div>
+                        <div id="report-panel-data" class="report-tab-panel hidden" role="tabpanel" aria-labelledby="report-tab-data" data-report-panel="data" hidden>
+                            <fieldset>
+                                <legend data-phrase="date_range">Date range</legend>
+                                <div class="report-date-grid">
+                                    <label for="report-from" data-phrase="from">From</label>
+                                    <input id="report-from" name="date_from" type="date">
+                                    <label for="report-to" data-phrase="to">To</label>
+                                    <input id="report-to" name="date_to" type="date">
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend data-phrase="include_columns">Include columns</legend>
+                                <label class="report-check report-select-all"><input type="checkbox" id="report-select-all-columns" checked> <span data-phrase="select_unselect_all">Select / unselect all</span></label>
+                                <div class="report-column-grid">
+                                    <label class="report-check"><input type="checkbox" name="column" value="date" checked> <span data-phrase="date">Date</span></label>
+                                    <label class="report-check"><input type="checkbox" name="column" value="time" checked> <span data-phrase="time">Time</span></label>
+                                    <label class="report-check"><input type="checkbox" name="column" value="systolic" checked> <span data-phrase="systolic">Systolic</span></label>
+                                    <label class="report-check"><input type="checkbox" name="column" value="diastolic" checked> <span data-phrase="diastolic">Diastolic</span></label>
+                                    <label class="report-check"><input type="checkbox" name="column" value="pulse" checked> <span data-phrase="pulse">Pulse</span></label>
+                                    <label class="report-check"><input type="checkbox" name="column" value="oxygen_saturation" checked> <span data-phrase="oxygen">O₂ saturation</span></label>
+                                    <label class="report-check"><input type="checkbox" name="column" value="height" checked> <span data-phrase="height">Height</span></label>
+                                    <label class="report-check"><input type="checkbox" name="column" value="weight" checked> <span data-phrase="weight">Weight</span></label>
+                                    <label class="report-check"><input type="checkbox" name="column" value="bmi" checked> <span data-phrase="bmi">BMI</span></label>
+                                    <label class="report-check"><input type="checkbox" name="column" value="notes" checked> <span data-phrase="notes">Notes</span></label>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div id="report-panel-layout" class="report-tab-panel hidden" role="tabpanel" aria-labelledby="report-tab-layout" data-report-panel="layout" hidden>
+                            <fieldset>
+                                <legend data-phrase="page_layout">Page layout</legend>
+                                <label for="report-orientation" data-phrase="page_orientation">Page orientation</label>
+                                <div class="report-select-wrap"><ion-icon name="tablet-portrait-sharp" aria-hidden="true"></ion-icon><select id="report-orientation" name="page_orientation" class="report-select"><option value="portrait" selected data-phrase="portrait">Portrait</option><option value="landscape" data-phrase="landscape">Landscape</option></select></div>
+                                <label for="report-page-size" data-phrase="page_size">Page size</label>
+                                <div class="report-select-wrap"><ion-icon name="document-sharp" aria-hidden="true"></ion-icon><select id="report-page-size" name="page_size" class="report-select"><option value="A4" selected>A4</option><option value="A3">A3</option><option value="A5">A5</option><option value="Letter">Letter</option><option value="Legal">Legal</option></select></div>
+                                <label for="report-margins" data-phrase="margins">Page margins</label>
+                                <div class="report-select-wrap"><select id="report-margins" name="margins" class="report-select"><option value="none" selected data-phrase="none">None</option><option value="small" data-phrase="small">Small</option><option value="normal" data-phrase="normal">Normal</option><option value="large" data-phrase="large">Large</option></select></div>
+                            </fieldset>
+                        </div>
+                    </form>
+                </aside>
+                <div class="report-preview">
+                    <h3 data-phrase="report_preview">Preview</h3>
+                    <iframe id="report-preview" title="Report preview"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section id="report-history" class="hidden">
+            <nav>
+                <ul>
+                    <li class="mobile-only">
+                        <button class="wicon menu-button" type="button">
+                            <ion-icon name="menu-sharp" class="icon"></ion-icon>
+                            <span data-phrase="menu">Menu</span>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="blue wicon" type="button" data-target="reports">
+                            <ion-icon name="arrow-back-circle-sharp" class="icon"></ion-icon>
+                            <span data-phrase="back">Back</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="wicon" type="button" data-target="client">
+                            <ion-icon name="person-sharp" class="icon"></ion-icon>
+                            <span data-phrase="selected_client">Client</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="wicon language-switch" type="button">
+                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
+                            <span data-phrase="current_language" data-item="lang_native">Current language</span>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                        <div class="language-menu hidden">
+                            <button class="wicon mobile-only language-close" type="button">
+                                <ion-icon name="close-sharp" class="icon"></ion-icon>
+                                <span data-phrase="close">Close</span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <h2 data-phrase="report_history">Report history</h2>
+            <div id="report-history-list" class="report-history-list"></div>
+        </section>
+
+        <section id="new-measurement" class="hidden">
+            <nav>
+                <ul>
+                    <li class="mobile-only">
+                        <button class="wicon menu-button" type="button">
+                            <ion-icon name="menu-sharp" class="icon"></ion-icon>
+                            <span data-phrase="menu">Menu</span>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="blue wicon" type="button" data-target="client">
+                            <ion-icon name="arrow-back-circle-sharp" class="icon"></ion-icon>
+                            <span data-phrase="back">Back</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="wicon" type="button" data-target="client">
+                            <ion-icon name="close-circle-sharp" class="icon"></ion-icon>
+                            <span data-phrase="cancel">Cancel</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="green wicon" type="submit" form="measurement-form">
+                            <ion-icon name="save-sharp" class="icon"></ion-icon>
+                            <span data-phrase="save">Save</span>
+                        </button>
+                    </li>
+                    <li class="not-mobile">
+                        <button class="wicon language-switch" type="button">
+                            <img src="/static/ionicons/svg/help-sharp.svg" class="icon" alt="Flag" data-item="lang_flag">
+                            <span data-phrase="current_language" data-item="lang_native">Current language</span>
+                            <ion-icon name="chevron-down-sharp" class="chevron"></ion-icon>
+                            <ion-icon name="chevron-up-sharp" class="chevron hidden"></ion-icon>
+                        </button>
+                        <div class="language-menu hidden">
+                            <button class="wicon mobile-only language-close" type="button">
+                                <ion-icon name="close-sharp" class="icon"></ion-icon>
+                                <span data-phrase="close">Close</span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <h2 data-phrase="new_measurement">New measurement</h2>
+            <form id="measurement-form" class="form-grid">
+                <label for="measurement-date" data-phrase="date">Date</label>
+                <input id="measurement-date" name="date" type="date" required>
+                <label for="measurement-time" data-phrase="time">Time</label>
+                <input id="measurement-time" name="time" type="time" required>
+                <label for="measurement-systolic" data-phrase="systolic">Systolic</label>
+                <input id="measurement-systolic" name="systolic" type="number">
+                <label for="measurement-diastolic" data-phrase="diastolic">Diastolic</label>
+                <input id="measurement-diastolic" name="diastolic" type="number">
+                <label for="measurement-pulse" data-phrase="pulse">Pulse</label>
+                <input id="measurement-pulse" name="pulse" type="number">
+                <label for="measurement-oxygen" data-phrase="oxygen">O₂ saturation</label>
+                <input id="measurement-oxygen" name="oxygen_saturation" type="number">
+                <label for="measurement-height" data-phrase="height">Height</label>
+                <input id="measurement-height" name="height" type="number">
+                <label for="measurement-weight" data-phrase="weight">Weight</label>
+                <input id="measurement-weight" name="weight" type="number">
+                <label for="measurement-notes" data-phrase="notes">Notes</label>
+                <textarea id="measurement-notes" name="notes"></textarea>
+                <div class="form-buttons mobile-only">
+                    <button class="wicon" type="button" data-target="client">
+                        <ion-icon name="close-circle-sharp" class="icon"></ion-icon>
+                        <span data-phrase="cancel">Cancel</span>
+                    </button>
+                    <button class="green wicon" type="submit">
+                        <ion-icon name="save-sharp" class="icon"></ion-icon>
+                        <span data-phrase="save">Save</span>
+                    </button>
+                </div>
+            </form>
+        </section>
     </main>
 </body>
 </html>

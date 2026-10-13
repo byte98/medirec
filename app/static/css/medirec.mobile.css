@@ -139,6 +139,7 @@ form{
 }
 
  input[type="text"],
+ input[type="search"],
  input[type="password"],
  input[type="email"],
  input[type="number"],
@@ -153,19 +154,279 @@ form{
     padding: 0.5rem;
  }
 
- form > .form-buttons{
-    display: flex;
+ form > .form-buttons {
+    display: flex !important;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 0.5rem;
     width: 100%;
+    margin-top: 0.5rem;
  }
 
-  form > .form-buttons > *{
-   width: calc(50% - 1rem);
-   padding: 1.25rem;
-  }
+ form > .form-buttons > button {
+    flex: 1 1 0;
+    width: 50%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 1rem 0.5rem;
+ }
 
   #new-hic{
    overflow-y: auto;
   }
+/** Mobile navigation is collapsed by default; the menu button always remains visible. */
+nav > ul > li:not(.mobile-only) {
+    display: none !important;
+}
+
+nav.menu-open > ul > li:not(.mobile-only) {
+    display: block !important;
+}
+
+nav.menu-open > ul > li:not(.mobile-only) > button {
+    display: flex;
+    width: 100%;
+}
+
+nav > ul > li.mobile-only > button {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.form-grid {
+    grid-template-columns: 1fr;
+}
+
+.form-grid > label {
+    margin-top: 0.25rem;
+}
+
+/**
+ * Compact measurement table on small screens.
+ */
+#measurements-table .measurement-number {
+    display: inline;
+}
+
+#measurements-table .measurement-expanded {
+    display: none;
+}
+
+#measurements-table .measurement-summary {
+    cursor: pointer;
+}
+
+@media (max-width: 767px) {
+    #measurements-table th:nth-child(7),
+    #measurements-table th:nth-child(10),
+    #measurements-table td:nth-child(7),
+    #measurements-table td:nth-child(10) {
+        display: none;
+    }
+
+    #measurements-table th:nth-child(3),
+    #measurements-table th:nth-child(4),
+    #measurements-table th:nth-child(5),
+    #measurements-table th:nth-child(6) {
+        font-size: 0;
+        width: 2.5rem;
+    }
+
+    #measurements-table th:nth-child(3)::after,
+    #measurements-table th:nth-child(4)::after,
+    #measurements-table th:nth-child(5)::after,
+    #measurements-table th:nth-child(6)::after {
+        content: "●";
+        font-size: 1rem;
+    }
+
+    #measurements-table .measurement-number {
+        display: none;
+    }
+
+    #measurements-table .measurement-summary td {
+        text-align: center;
+    }
+
+    #measurements-table .measurement-summary td:nth-child(1),
+    #measurements-table .measurement-summary td:nth-child(2) {
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    #measurements-table .measurement-expanded {
+        display: table-row;
+    }
+
+    #measurements-table .measurement-expanded.hidden {
+        display: none;
+    }
+
+    #measurements-table .measurement-expanded > td {
+        display: table-cell !important;
+        padding: 0.75rem;
+    }
+
+    .measurement-detail-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 0.5rem 1rem;
+    }
+
+    .measurement-detail {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .measurement-detail > strong {
+        font-weight: 600;
+    }
+}
+
+
+/* Reports use a single-column flow on phones; avoid fixed-height clipping. */
+#reports {
+    height: auto;
+    min-height: calc(100dvh - 7rem);
+    max-height: none;
+    overflow: visible;
+    box-sizing: border-box;
+}
+
+#reports .report-layout {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    gap: 1rem;
+}
+
+#reports .report-settings {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 0;
+    overflow: visible;
+    padding: .75rem;
+    box-sizing: border-box;
+}
+
+#reports .report-settings #report-form {
+    width: 100%;
+    max-width: 100%;
+    padding-top: .5rem;
+}
+
+#reports .report-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#reports [data-report-panel] > fieldset {
+    width: 100%;
+    box-sizing: border-box;
+    padding: .75rem;
+}
+
+#reports .report-column-grid {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+#reports .report-date-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: .25rem;
+}
+
+#reports .report-date-grid input {
+    margin-bottom: .75rem;
+}
+
+#reports .report-preview {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 65dvh;
+    min-height: 28rem;
+    overflow: hidden;
+    padding: .25rem 0;
+}
+
+#reports #report-preview {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    flex: 1 1 auto;
+}
+
+
+/** Report settings remain usable on narrow screens without overflowing the viewport. */
+@media (max-width: 767px) {
+    #reports .report-layout {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+    }
+
+    #reports .report-settings {
+        display: none;
+        width: 100%;
+        max-width: 100%;
+        max-height: none;
+        overflow: visible;
+    }
+
+    #reports .report-settings.report-settings-open {
+        display: block;
+    }
+
+    #reports .report-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: .5rem;
+        width: 100%;
+    }
+
+    #reports .report-tabs > button {
+        min-width: 0;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #reports [data-report-panel][hidden],
+    #reports [data-report-panel].hidden {
+        display: none !important;
+    }
+
+    #reports .report-preview {
+        width: 100%;
+        min-width: 0;
+        height: 65dvh;
+        min-height: 24rem;
+        overflow: hidden;
+    }
+
+    #reports #report-preview {
+        width: 100%;
+        min-width: 0;
+        min-height: 0;
+        height: 100%;
+    }
+}
+
+
+@media (max-width: 767px) {
+    #reports .report-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .2rem; padding: .25rem .25rem 0; }
+    #reports .report-tabs [role="tab"] { flex-direction: column; gap: .2rem; min-height: 3.6rem; padding: .45rem .2rem; font-size: .82rem; overflow-wrap: anywhere; }
+    #reports .report-tabs [role="tab"] ion-icon { font-size: 1.25rem; }
+    #reports .report-tab-panel { padding-top: .65rem; }
+    #reports .report-settings .report-tab-panel fieldset { padding: .7rem; }
+    #reports .report-column-grid { grid-template-columns: minmax(0, 1fr); gap: .4rem; }
+    #reports .report-date-grid { grid-template-columns: minmax(0, 1fr); gap: .25rem; }
+    #reports .report-date-grid label { margin-top: .35rem; }
+    #reports .report-date-grid input { width: 100%; min-width: 0; }
+}

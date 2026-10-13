@@ -1,221 +1,198 @@
 // MediRec - simple web application to save some basic medical records.
 // Copyright (C) 2026 Jiri Skoda <developer@skodaj.cz>
-// 
+//
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; version 2 of the License.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License along
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-
 /**
- * Class, which just wraps language switcher of the application.
+ * Class wrapping the language switcher used by every MediRec section.
  */
-class LanguageSwitch{
-    
+class LanguageSwitch {
     /**
-     * Buttons, which is used to switch the language of the application.
-     * @type {NodeList}
+     * Create a language switcher.
+     * @param {NodeListOf<HTMLElement>} buttons Language-switch buttons.
      */
-    #buttons;
-
-    /**
-     * List of all languages, which are available in the application.
-     * @type {LanguageMeta[]}
-     */
-    #languages;
-
-    /**
-     * Index of the selected language in the list of all languages, which are available in the application.
-     * @type {number}
-     * @private
-     */
-    #selectedIndex;
-
-    /**
-     * Listeners, which are called when the selected language is changed.
-     * @type {function(LanguageMeta)[]}
-     * @private
-     */
-    #selectedLanguageChangedListeners;
-
-    /**
-     * Creates new language switcher.
-     * @param {NodeList} buttons Buttons, which are used to switch the language of the application.
-     */
-    constructor(buttons){
+    constructor(buttons) {
         this.#buttons = buttons;
-        this.#selectedLanguageChangedListeners = [];
-        for(const button of this.#buttons){
-            button.addEventListener("click", () => {
-                this.#toggleMenu();
-            });
-        }
         this.#languages = [];
         this.#selectedIndex = -1;
-        for(const button of this.#buttons){
-            const closeButton = button.parentElement.querySelector("button.mobile-only");
-            if(closeButton !== null && closeButton !== undefined){
-                closeButton.addEventListener("click", () => {
+
+        for (const button of this.#buttons) {
+            button.addEventListener("click", (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                this.#toggleMenu(button);
+            });
+
+            const closeButton = button.parentElement?.querySelector(".language-close");
+            if (closeButton !== null && closeButton !== undefined) {
+                closeButton.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
                     this.#hideMenu();
                 });
             }
         }
 
-        // Close all menus on navigation
-        window.addEventListener("hashchange", (event) => {
+        for (const closeButton of document.querySelectorAll(".language-close")) {
+            closeButton.addEventListener("click", (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                this.#hideMenu();
+            });
+        }
+
+        window.addEventListener("hashchange", () => {
             this.#hideMenu();
         });
     }
-    
+
+    /** @type {NodeListOf<HTMLElement>} @private */
+    #buttons;
+
+    /** @type {object[]} @private */
+    #languages;
+
+    /** @type {number} @private */
+    #selectedIndex;
+
     /**
-     * Hides the menu of the language switcher.
-     * @private
-     * @returns {void}
+     * Hide all language menus and reset their chevrons.
      */
-    #hideMenu(){
-        for(const button of this.#buttons){
-            const menu = button.parentElement.querySelector(".language-menu");
-            if(menu !== null && menu !== undefined){
+    #hideMenu() {
+        for (const button of this.#buttons) {
+            const menu = button.parentElement?.querySelector(".language-menu");
+            if (menu !== null && menu !== undefined) {
                 menu.classList.add("hidden");
             }
-            const chevronUps = button.querySelectorAll("ion-icon[name='caret-up-sharp']");
-            for(const chevron of chevronUps){
+
+            for (const chevron of button.querySelectorAll("ion-icon[name='chevron-up-sharp']")) {
                 chevron.classList.add("hidden");
             }
-            const chevronDowns = button.querySelectorAll("ion-icon[name='caret-down-sharp']");
-            for(const chevron of chevronDowns){
+            for (const chevron of button.querySelectorAll("ion-icon[name='chevron-down-sharp']")) {
                 chevron.classList.remove("hidden");
             }
         }
     }
 
     /**
-     * Toggles the menu of the language switcher.
-     * @private
-     * @returns {void}
+     * Toggle the menu belonging to one language switch button.
+     * @param {HTMLElement} button Language switch button.
      */
-    #toggleMenu(){
-        for(const button of this.#buttons){
-            const menu = button.parentElement.querySelector(".language-menu");
-            if(menu !== null && menu !== undefined){
-                menu.classList.toggle("hidden");
-            }
-            const chevrons = button.querySelectorAll("ion-icon");
-            for(const chevron of chevrons){
-                chevron.classList.toggle("hidden");
-            }
+    #toggleMenu(button) {
+        const menu = button.parentElement?.querySelector(".language-menu");
+        const isHidden = menu?.classList.contains("hidden") ?? true;
+        this.#hideMenu();
+
+        if (menu !== null && menu !== undefined) {
+            menu.classList.toggle("hidden", !isHidden);
+        }
+        for (const chevron of button.querySelectorAll("ion-icon[name='chevron-down-sharp']")) {
+            chevron.classList.toggle("hidden", !isHidden);
+        }
+        for (const chevron of button.querySelectorAll("ion-icon[name='chevron-up-sharp']")) {
+            chevron.classList.toggle("hidden", isHidden);
         }
     }
 
     /**
-     * Adds a listener that will be called when the selected language is changed.
-     * @param {function(LanguageMeta)} listener The listener to add.
+     * Set available languages.
+     * @param {object[]} languages Language metadata.
      */
-    addSelectedLanguageChangedListener(listener){
-        if(typeof listener === "function"){
-            this.#selectedLanguageChangedListeners.push(listener);
-        }
-    }
-
-    /**
-     * Adds a new language to the list of available languages.
-     * @param {LanguageMeta} languageMeta Metadata of the language, which is added to the list of available languages.
-     */
-    addLanguage(languageMeta){
-        this.#languages.push(languageMeta);
+    setLanguages(languages) {
+        this.#languages = languages;
+        const currentCode = LanguageBase.currentLanguage;
+        const index = languages.findIndex((language) => language.code === currentCode);
+        this.#selectedIndex = index >= 0 ? index : 0;
         this.#updateButton();
     }
 
     /**
-     * Sets the selected language.
-     * @param {LanguageMeta} language Language, which is selected in the language switcher.
+     * Select a language by code.
+     * @param {string} code Language code.
      */
-    setSelectedLanguage(language){
-        let index = this.#languages.indexOf(language);
-        if(index !== -1){
+    select(code) {
+        const index = this.#languages.findIndex((language) => language.code === code);
+        if (index >= 0) {
             this.#selectedIndex = index;
+            LanguageBase.currentLanguage = this.#languages[index].code;
+            LanguageBase.apply();
             this.#updateButton();
+            this.#hideMenu();
         }
     }
 
     /**
-     * Invokes all listeners, which are called when the selected language is changed.
-     * @private
-     * @returns {void}
+     * Initialize the selected language.
+     * @param {string} code Language code.
      */
-    #invokeListeners(){
-        if(this.#selectedIndex !== -1 && this.#selectedIndex < this.#languages.length){
-            const language = this.#languages[this.#selectedIndex];
-            for(const listener of this.#selectedLanguageChangedListeners){
-                listener(language);
+    initialize(code) {
+        this.select(code);
+    }
+
+    /**
+     * Update every language button and recreate every language menu.
+     */
+    #updateButton() {
+        for (const button of this.#buttons) {
+            const menu = button.parentElement?.querySelector(".language-menu");
+            if (menu === null || menu === undefined) {
+                continue;
             }
-        }
-    }
 
-    /**
-     * Updates the button, which is used to switch the language of the application.
-     * @private
-     * @returns {void}
-     */
-    #updateButton(){
-        for(const button of this.#buttons){
-            const menu = button.parentElement.querySelector(".language-menu");
+            const selected = this.#languages[this.#selectedIndex];
             const flag = button.querySelector("img[data-item='lang_flag']");
             const name = button.querySelector("span[data-item='lang_native']");
-            if(this.#selectedIndex !== -1 && this.#selectedIndex < this.#languages.length){
-                const language = this.#languages[this.#selectedIndex];
-                if(flag !== null && flag !== undefined){
-                    flag.src = language.flag
-                    flag.alt = language.nativeName;
-                }
-                if(name !== null && name !== undefined){
-                    name.textContent = language.nativeName;
-                }
-            }
-            const existingUl = menu.querySelector("ul");
-            if(existingUl !== null && existingUl !== undefined){
-                existingUl.remove();
-            }
-            const ul = document.createElement("ul");
-            for(const lang of this.#languages){
-                const li = document.createElement("li");
-                if (this.#selectedIndex !== -1 && this.#selectedIndex < this.#languages.length && this.#languages[this.#selectedIndex] === lang){
-                    li.classList.add("selected");
-                }
-                const flag = document.createElement("img");
-                flag.src = lang.flag;
-                flag.alt = lang.nativeName;
-                li.appendChild(flag);
-                const span = document.createElement("span");
-                span.textContent = lang.nativeName;
-                li.appendChild(span);
-                li.addEventListener("click", () => {
-                    this.#selectedIndex = this.#languages.indexOf(lang);
-                    this.#updateButton();
-                    this.#invokeListeners();
-                    this.#hideMenu();
-                });
-                ul.appendChild(li);
-            }
-            menu.appendChild(ul);
-        }
-    }
 
-    /**
-     * Clears the list of available languages and resets the selected language.
-     * @returns {void}
-     */
-    clearLanguages(){
-        this.#languages = [];
-        this.#selectedIndex = -1;
-        this.#updateButton();
+            if (selected !== undefined) {
+                if (flag !== null) {
+                    flag.src = selected.flag;
+                    flag.alt = selected.nativeName;
+                }
+                if (name !== null) {
+                    name.textContent = selected.nativeName;
+                }
+            }
+
+            const existing = menu.querySelector("ul");
+            if (existing !== null) {
+                existing.remove();
+            }
+
+            const list = document.createElement("ul");
+            for (const language of this.#languages) {
+                const item = document.createElement("li");
+                if (selected === language) {
+                    item.classList.add("selected");
+                }
+
+                const image = document.createElement("img");
+                image.src = language.flag;
+                image.alt = language.nativeName;
+                item.appendChild(image);
+
+                const text = document.createElement("span");
+                text.textContent = language.nativeName;
+                item.appendChild(text);
+
+                item.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    this.select(language.code);
+                });
+                list.appendChild(item);
+            }
+            menu.appendChild(list);
+        }
     }
 }

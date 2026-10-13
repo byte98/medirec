@@ -1,113 +1,92 @@
 // MediRec - simple web application to save some basic medical records.
 // Copyright (C) 2026 Jiri Skoda <developer@skodaj.cz>
-// 
+//
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; version 2 of the License.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License along
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/**
- * Class, which represents base of phrases of all languages.
- */
-class LanguageBase{
+/** Client-side translation cache and translator. */
+class LanguageBase {
+    /** @type {string} */ static COOKIE_NAME = 'locale';
+    /** @type {string} */ static PARAMETER_NAME = 'lang';
+    /** @type {string} */ static DEFAULT_LANGUAGE = 'en';
+    /** @type {object} */ static #languages = {};
+    /** @type {string} */ static #current = 'en';
+    /** @type {function[]} */ static #listeners = [];
 
     /**
-     * Listeners, which are called, when the language is changed.
+     * Determine preferred language.
+     * @returns {string} Language code.
      */
-    static #changeListeners = [];
-
-    /**
-     * Name of the cookie, which stores the current language of the application.
-     */
-    static COOKIE_NAME = "locale";
-
-    /**
-     * Name of the parameter, which stores the current language of the application.
-     */
-    static PARAMETER_NAME = "lang";
-
-    /**
-     * Default language of the application.
-     */
-    static DEFAULT_LANGUAGE = "en";
-
-    /**
-     * Gets current language of the application.
-     * @returns {string} Code of the current language of the application.
-     */
-    static get currentLanguage(){
+    static get currentLanguage() {
         let reti = LanguageBase.DEFAULT_LANGUAGE;
-        const getParameter = (name) => {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name) || '';
-        };
-        const parameterValue = getParameter(LanguageBase.PARAMETER_NAME);
-        if(parameterValue !== ""){
-            reti = parameterValue;
+        const parameter = new URLSearchParams(window.location.search).get(LanguageBase.PARAMETER_NAME);
+        const cookie = document.cookie.match('(^|;)\\s*' + LanguageBase.COOKIE_NAME + '\\s*=\\s*([^;]+)')?.pop() || '';
+        const browser = navigator.language || navigator.userLanguage || '';
+        const candidate = parameter || cookie || browser;
+        if (candidate) {
+            reti = candidate.split('-')[0];
         }
-        else{
-            const getCookieValue = (name) => (
-            document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
-            );
-            const cookieValue = getCookieValue(LanguageBase.COOKIE_NAME);
-            if(cookieValue !== ""){
-                reti = cookieValue;
-            }
-            else{
-                let browserLanguage = navigator.language || navigator.userLanguage;
-                if(browserLanguage !== undefined && browserLanguage !== null && browserLanguage !== ""){
-                    reti = browserLanguage;
-                }
-            }
-        }        
-        if (reti.includes("-")) {
-            reti = reti.split("-")[0];
+        if (!LanguageBase.#languages[reti]) {
+            reti = LanguageBase.DEFAULT_LANGUAGE;
         }
         return reti;
     }
 
-    /**
-     * Sets current language of the application.
-     * @param {string} value Code of the current language of the application.
-     */
-    static set currentLanguage(value){
-        document.cookie = LanguageBase.COOKIE_NAME + "=" + value + "; path=/";
-        if(LanguageBase.#changeListeners !== undefined && LanguageBase.#changeListeners !== null){
-            for(let listener of LanguageBase.#changeListeners){
-                listener(value);
-            }
-        }
+    /** @param {string} value Language code. */
+    static set currentLanguage(value) {
+        LanguageBase.#current = value;
+        document.cookie = `${LanguageBase.COOKIE_NAME}=${value}; path=/; SameSite=Lax`;
+        for (const listener of LanguageBase.#listeners) { listener(value); }
     }
 
-    /**
-     * Adds listener, which is called, when the language is changed.
-     * @param {function(string)} listener Listener, which is called, when the language is changed.
-     */
-    static addChangeListener(listener){
-        if(LanguageBase.#changeListeners !== undefined && LanguageBase.#changeListeners !== null){
-            LanguageBase.#changeListeners.push(listener);
-        }
+    /** @param {object[]} languages Cached language resources. */
+    static set languages(languages) {
+        LanguageBase.#languages = {};
+        for (const language of languages) { LanguageBase.#languages[language.code] = language; }
     }
 
-    /**
-     * Translates a phrase to the current language.
-     * @param {string} phrase Phrase to translate.
-     * @returns {string} Translated phrase.
-     */
-    static translate(phrase){
-        let reti = phrase;
-        let currentLanguage = LanguageBase.currentLanguage;
-        //TODO: Proper translation implementation
-        reti = phrase + " (" + currentLanguage + ")";
+    /** @returns {object} Current language resource. */
+    static get language() {
+        const code = LanguageBase.#languages[LanguageBase.#current] ? LanguageBase.#current : LanguageBase.currentLanguage;
+        const reti = LanguageBase.#languages[code] || {};
         return reti;
     }
 
+    /** @param {function} listener Language change listener. */
+    static addChangeListener(listener) { LanguageBase.#listeners.push(listener); }
+
+    /** @param {string} phrase Phrase key. @returns {string} Translation. */
+    static translate(phrase) {
+        const phrases = LanguageBase.language.phrases || {};
+        const reti = phrases[phrase] || phrase;
+        return reti;
+    }
+
+    /** Apply current translations to the document. */
+    static apply() {
+        for (const element of document.querySelectorAll('[data-phrase]')) {
+            element.textContent = LanguageBase.translate(element.dataset.phrase);
+        }
+        for (const element of document.querySelectorAll('[data-phrase-placeholder]')) {
+            element.setAttribute('placeholder', LanguageBase.translate(element.dataset.phrasePlaceholder));
+        }
+        document.documentElement.lang = LanguageBase.#current;
+        document.title = LanguageBase.translate('medical_records');
+    }
+
+    /** @returns {object[]} Loaded language resources. */
+    static get languages() { const reti = Object.values(LanguageBase.#languages); return reti; }
+
+    /** @returns {string} Current language code. */
+    static get code() { const reti = LanguageBase.#current; return reti; }
 }

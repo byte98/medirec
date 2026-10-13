@@ -1,0 +1,313 @@
+<!--
+ MediRec - simple web application to save some basic medical records.
+ Copyright (C) 2026 Jiri Skoda <developer@skodaj.cz>
+ 
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; version 2 of the License.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License along
+ with this program; if not, write to the Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical data report</title>    
+    <link type="image/x-icon" rel="icon" href="/static/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="/static/fonts/selawik.css">
+    <link type="text/css" rel="stylesheet" href="/static/fonts/ubuntumono.css">
+    <script type="module" src="/static/ionicons/ionicons.js" defer></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-size: 10pt;
+            vertical-align: middle;
+        }
+
+        h1{
+            font-size: 14pt;
+        }
+
+        h2{
+            font-size: 12pt;
+            margin-top: 1rem;
+        }
+
+        body{
+            font-family: "Selawik", sans-serif;
+        }
+        header, footer{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: "Ubuntu Mono", monospace;
+        }
+        header{
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #000;
+        }
+
+        footer{
+            margin-top: 1rem;
+            border-top: 2px solid #000;
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .header{
+            background:linear-gradient(rgb(240, 249, 255) 45%, rgb(230, 245, 254) 45%, rgb(199, 216, 224));
+            border: 1px solid rgb(133, 174, 195);
+            font-weight: 300;
+            color: rgb(0, 31, 71);
+        }
+
+        #personal-data > article{
+            display: grid;
+            grid-template-areas:
+                "name-header    name-val    name-val    name-val    name-val"
+                "surname-header surname-val surname-val surname-val surname-val"
+                "birth-header   birth-val   birth-val   age-header  age-val"
+                "pid-header     pid-val     pid-val     sex-header  sex-val"
+                "hic-header     hic-code    hic-abbr    hic-name    hic-name";
+            gap: 0;
+        }
+
+        #personal-data .header{
+            border-top: 2px solid rgb(133, 174, 195);
+            border-bottom: 2px solid rgb(133, 174, 195);
+            border-left: 2px solid rgb(133, 174, 195);
+            margin-top: 0.5rem;
+        }
+
+        #personal-data .value{
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            border-right: 2px solid black;
+            font-family: "Ubuntu Mono", monospace;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        #personal-data .value.start, #personal-data .value.middle{
+            border-right: none;
+            margin-right: 0;
+        }
+
+        #personal-data .value.end{
+            border-left: none;
+            margin-right: 0.5rem;
+        }
+
+        #report-data thead{
+            background:linear-gradient(rgb(240, 249, 255) 45%, rgb(230, 245, 254) 45%, rgb(199, 216, 224));
+            border: 1px solid rgb(133, 174, 195);
+        }
+
+        #report-data th{
+            font-weight: 300;
+            color: rgb(0, 31, 71);
+            text-align: left;
+        }
+
+        #report-data tbody td{
+            text-align: left;
+        }
+
+        #report-data td{
+            font-family: "Ubuntu Mono", monospace;
+        }
+
+        #report-data tbody tr:nth-child(even){
+            background-color: rgb(221, 226, 230);
+        }
+
+        #report-data thead tr:nth-child(2) th{
+            color: rgb(56, 69, 86);
+            font-size: 8pt;
+        }
+
+        #report-data tbody td:not(.ok):not(.warning):not(.severe){
+            padding: 0.25rem 0.5rem;
+        }
+
+        #report-data td.ok{
+            background:linear-gradient(rgb(102, 197, 30) 45%, rgb(93, 185, 23) 45%, rgb(69, 145, 12));
+            border: 2px solid rgb(102, 197, 30);
+            width: 1rem;
+            height: 100%;
+        }
+
+        #report-data td.warning{
+            background:linear-gradient(rgb(255, 204, 0) 45%, rgb(255, 191, 0) 45%, rgb(204, 153, 0));
+            border: 2px solid rgb(255, 204, 0);
+            width: 1rem;
+            height: 100%;
+        }
+
+        #report-data td.severe{
+            background:linear-gradient(rgb(255, 0, 0) 45%, rgb(204, 0, 0) 45%, rgb(153, 0, 0));
+            border: 2px solid rgb(255, 0, 0);
+            width: 1rem;
+            height: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <p>Medical data report</p>
+        <p>Surname Name (PersonalID)</p>
+        <p>Page <strong>X</strong> of <strong>Y</strong></p>
+    </header>
+    <main>
+        <h1>Medical data report</h1>
+        <section id="personal-data">
+            <h2>Personal data</h2>
+            <article>
+                <p class="header" style="grid-area: name-header;">Name</p>
+                <p class="value" style="grid-area: name-val;">Name</p>
+                <p class="header" style="grid-area: surname-header;">Surname</p>
+                <p class="value" style="grid-area: surname-val;">Surname</p>
+                <p class="header" style="grid-area: birth-header;">Date of birth</p>
+                <p class="value" style="grid-area: birth-val;">YYYY-MM-DD</p>
+                <p class="header" style="grid-area: age-header;">Age</p>
+                <p class="value" style="grid-area: age-val;">XX</p>
+                <p class="header" style="grid-area: pid-header;">Personal ID</p>
+                <p class="value" style="grid-area: pid-val;">XXXXXXXXXXXX</p>
+                <p class="header" style="grid-area: sex-header;">Sex</p>
+                <p class="value" style="grid-area: sex-val;">M/F</p>
+                <p class="header" style="grid-area: hic-header;">Health insurance company</p>
+                <p class="value start" style="grid-area: hic-code;">Code</p>
+                <p class="value middle" style="grid-area: hic-abbr;">Abbreviation</p>
+                <p class="value end" style="grid-area: hic-name;">Name</p>
+            </article>
+        </section>
+        <section id="report-data">
+            <h2>Report data</h2>
+            <article>
+                <p>Found <strong>X</strong> records in the era from <strong>YYYY-MM-DD</strong> to <strong>YYYY-MM-DD</strong>.</p>
+            </article>
+            <article>
+                <p>Showing records <strong>1</strong> to <strong>10</strong> of <strong>X</strong>.</p>
+            </article>
+            <table>
+                <thead>
+                    <tr>
+                        <th rowspan="2">Date</th>
+                        <th rowspan="2">Time</th>
+                        <th colspan="2">Systolic pressure</th>
+                        <th colspan="2">Diastolic pressure</th>
+                        <th colspan="2">Pulse</th>
+                        <th colspan="2">O<sub>2</sub> saturation</th>
+                        <th>Height</th>
+                        <th colspan="2">Weight</th>
+                        <th colspan="2">BMI</th>
+                        <th rowspan="2">Notes</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">mmHg</th>
+                        <th colspan="2">mmHg</th>
+                        <th colspan="2">min<sup>-1</sup></th>
+                        <th colspan="2">&percnt;</th>
+                        <th>cm</th>
+                        <th colspan="2">kg</th>
+                        <th colspan="2">kg&times;m<sup>-2</sup></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>YYYY-MM-DD</td>
+                        <td>HH:MM</td>
+                        <td class="ok">&nbsp;</td>
+                        <td>SYS</td>
+                        <td class="ok">&nbsp;</td>
+                        <td>DIA</td>
+                        <td class="warning">&nbsp;</td>
+                        <td>PUL</td>
+                        <td class="ok">&nbsp;</td>
+                        <td>O2</td>
+                        <td>HGT</td>
+                        <td class="severe">&nbsp;</td>
+                        <td>WGT</td>
+                        <td class="ok">&nbsp;</td>
+                        <td>BMI</td>
+                        <td>Notes</td>
+                    </tr>
+                    <tr>
+                        <td>YYYY-MM-DD</td>
+                        <td>HH:MM</td>
+                        <td class="severe">&nbsp;</td>
+                        <td>SYS</td>
+                        <td class="ok">&nbsp;</td>
+                        <td>DIA</td>
+                        <td class="ok">&nbsp;</td>
+                        <td>PUL</td>
+                        <td class="warning">&nbsp;</td>
+                        <td>O2</td>
+                        <td>HGT</td>
+                        <td class="severe">&nbsp;</td>
+                        <td>WGT</td>
+                        <td class="warning">&nbsp;</td>
+                        <td>BMI</td>
+                        <td>Notes</td>
+                    </tr>
+                    <tr>
+                        <td>YYYY-MM-DD</td>
+                        <td>HH:MM</td>
+                        <td class="warning">&nbsp;</td>
+                        <td>SYS</td>
+                        <td class="severe">&nbsp;</td>
+                        <td>DIA</td>
+                        <td class="severe">&nbsp;</td>
+                        <td>PUL</td>
+                        <td class="ok">&nbsp;</td>
+                        <td>O2</td>
+                        <td>HGT</td>
+                        <td class="warning">&nbsp;</td>
+                        <td>WGT</td>
+                        <td class="ok">&nbsp;</td>
+                        <td>BMI</td>
+                        <td>Notes</td>
+                    </tr>
+                    <tr>
+                        <td>YYYY-MM-DD</td>
+                        <td>HH:MM</td>
+                        <td class="ok">&nbsp;</td>
+                        <td>SYS</td>
+                        <td class="ok">&nbsp;</td>
+                        <td>DIA</td>
+                        <td class="severe">&nbsp;</td>
+                        <td>PUL</td>
+                        <td class="ok">&nbsp;</td>
+                        <td>O2</td>
+                        <td>HGT</td>
+                        <td class="severe">&nbsp;</td>
+                        <td>WGT</td>
+                        <td class="severe">&nbsp;</td>
+                        <td>BMI</td>
+                        <td>Notes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>MediRec v0.1.0</p>
+        <p>Date and time of generation: <strong>YYYY-MM-DD HH:MM:SS</strong></p>
+    </footer>
+</body>
+</html>

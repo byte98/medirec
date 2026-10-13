@@ -1,0 +1,30 @@
+/**
+ * MediRec - simple web application to save some basic medical records.
+ * Copyright (C) 2026 Jiri Skoda <developer@skodaj.cz>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 2 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+/** Health indicator colors for dark theme. */
+.indicator-HEALTHY {
+    background: linear-gradient(rgb(76, 175, 80) 45%, rgb(46, 125, 50) 45%, rgb(27, 94, 32));
+}
+
+.indicator-CAUTION {
+    background: linear-gradient(rgb(255, 213, 79) 45%, rgb(196, 151, 0) 45%, rgb(120, 91, 0));
+}
+
+.indicator-UNHEALTHY {
+    background: linear-gradient(rgb(239, 108, 108) 45%, rgb(183, 28, 28) 45%, rgb(100, 10, 10));
+}
+
+.indicator-UNKNOWN {
+    background: linear-gradient(rgb(158, 158, 158) 45%, rgb(97, 97, 97) 45%, rgb(55, 55, 55));
+}

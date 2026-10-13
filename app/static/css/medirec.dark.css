@@ -79,3 +79,14 @@ body{
 .light-only{
     display: none !important;
 }
+
+
+/* Report dropdowns use the same icon-and-label treatment as the language switch. */
+.report-select, .report-settings select {
+    color: var(--text-color);
+    background-color: var(--background-color);
+    background-image: linear-gradient(rgb(70, 70, 70) 45%, rgb(58, 58, 58) 45%, rgb(40, 40, 40)), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23eee' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left top, right .7rem center;
+    background-size: 100% 100%, 1rem;
+}

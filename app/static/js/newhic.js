@@ -1,97 +1,55 @@
 // MediRec - simple web application to save some basic medical records.
 // Copyright (C) 2026 Jiri Skoda <developer@skodaj.cz>
-// 
+//
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; version 2 of the License.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License along
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /**
- * Class, which wraps script for creating new health insurance company.
+ * Controller for creating health-insurance companies.
  */
-class NewHIC{
-
+class NewHIC {
     /**
-     * Main function of the script.
+     * Initialize the health-insurance-company form.
      */
-    static main(){
-        document.querySelector("#save-hic").addEventListener("click", (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            const form = document.querySelector("#new-hic-form");
-            if (form.checkValidity()){
-                form.requestSubmit();
-            }
-        });
-
+    static initialize() {
         const form = document.querySelector("#new-hic-form");
-        form.addEventListener("reset", () => {
-            window.location.hash = "#hic";
-        });
+        if (form.dataset.initialized === "true") {
+            return;
+        }
 
-        form.addEventListener("submit", (event) => {
+        form.dataset.initialized = "true";
+        form.addEventListener("submit", async (event) => {
             event.preventDefault();
-            event.stopPropagation();
+            const data = Object.fromEntries(new FormData(form).entries());
             Medirec.ui.showWait();
-            const hic = new HealthInsuranceCompany(
-                form.querySelector("#new-hic-code").value,
-                form.querySelector("#new-hic-abbr").value,
-                form.querySelector("#new-hic-name").value,
-                form.querySelector("#new-hic-note").value
-            );
-            Medirec.api.createHIC(
-                hic,
-                () => {
-                    Medirec.ui.hideWait();
-                    window.location.hash = "#hic";
-                    Medirec.ui.showDialog(
-                        "success",
-                        "Health insurance company created",
-                        "Health insurance company '" + hic.name + "' was successfully created.",
-                        "",
-                        [[]],
-                        true,
-                        3000
-                    );
-                },
-                (warnings) => {
-                    Medirec.ui.hideWait();
-                    let message = "";
-                    for(const warning of warnings){
-                        message += " - " +warning + "\n";
-                    }
-                    Medirec.ui.showDialog(
-                        "warning",
-                        "Creation of health insurance company failed",
-                        "The health insurance company '" + hic.name + "' could not be created due to the following warnings:\n" + message,
-                        "",
-                        [[]],
-                        true
-                    );
-                }, 
-                (error) => {
-                    Medirec.ui.hideWait();
-                    Medirec.ui.showDialog(
-                        "error",
-                        "Creation of health insurance company failed",
-                        "The health insurance company '" + hic.name + "' could not be created.\nPlease, try it again later.\nIf the problem persists, please contact support.",
-                        error,
-                        [[]],
-                        true
-                    );
-                });
+
+            try {
+                await Medirec.api.createHIC(data);
+                form.reset();
+                await Home.refreshData();
+                window.location.hash = "#hic";
+            } catch (error) {
+                Medirec.ui.showDialog(
+                    "error",
+                    LanguageBase.translate("error"),
+                    String(error),
+                    "",
+                    [[]],
+                    true
+                );
+            } finally {
+                Medirec.ui.hideWait();
+            }
         });
     }
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    NewHIC.main();
-});

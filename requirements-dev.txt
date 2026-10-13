@@ -1,0 +1,7 @@
+# MediRec - simple web application to save some basic medical records.
+# Copyright (C) 2026 Jiri Skoda <developer@skodaj.cz>
+# GPL-2.0-or-later
+
+-r requirements.txt
+pytest>=8,<10
+httpx>=0.28,<1

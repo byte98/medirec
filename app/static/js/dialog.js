@@ -80,11 +80,11 @@ class Dialog{
      * @private
      */
     static #sounds = {
-        "error": new Audio("../mp3/error.mp3"),
-        "info": new Audio("../mp3/info.mp3"),
-        "question": new Audio("../mp3/question.mp3"),
-        "success": new Audio("../mp3/success.mp3"),
-        "warning": new Audio("../mp3/warning.mp3")
+        "error": new Audio("/static/mp3/error.mp3"),
+        "info": new Audio("/static/mp3/info.mp3"),
+        "question": new Audio("/static/mp3/question.mp3"),
+        "success": new Audio("/static/mp3/success.mp3"),
+        "warning": new Audio("/static/mp3/warning.mp3")
     };
 
     /**
@@ -111,10 +111,10 @@ class Dialog{
         reti.classList.add("dialog-details-button");
         reti.appendChild(document.createTextNode("Details"));
         const caretDown = document.createElement("ion-icon");
-        caretDown.setAttribute("name", "caret-down-sharp");
+        caretDown.setAttribute("name", "chevron-down-sharp");
         reti.appendChild(caretDown);
         const caretUp = document.createElement("ion-icon");
-        caretUp.setAttribute("name", "caret-up-sharp");
+        caretUp.setAttribute("name", "chevron-up-sharp");
         caretUp.classList.add("hidden");
         reti.appendChild(caretUp);
         reti.addEventListener("click", (event) => {
@@ -209,8 +209,9 @@ class Dialog{
         }
         button.appendChild(document.createTextNode(text));
         button.classList.add("dialog-action");
-        button.addEventListener("click", (event) => {
-            callback();
+        button.addEventListener("click", async (event) => {
+            this.closeDialog();
+            await callback();
         });
         const actionsSpan = this.#element.querySelector(".dialog-actions");
         if (actionsSpan !== null){
@@ -248,7 +249,12 @@ class Dialog{
         this.#container = container;
         container.appendChild(this.#element);
         this.#element.scrollIntoView({behavior: "smooth", block: "center"});
-        this.#sound.play();
+        if (this.#sound !== undefined) {
+            const playback = this.#sound.play();
+            if (playback !== undefined) {
+                playback.catch(() => {});
+            }
+        }
         if (this.#autoClose > 0){
             this.#autoCloseTimer = setTimeout(() => {
                 this.closeDialog();
