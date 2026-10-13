@@ -69,6 +69,17 @@ class Medirec {
             });
         }
 
+        // Back button on home page
+        const backHomeButton = document.querySelector("#back-home-btn");
+        if (backHomeButton !== null) {
+            backHomeButton.addEventListener("click", (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                window.location.hash = "";
+                window.location.href="/";
+            });
+        }
+
         await Home.main();
         Report.initialize();
     }
