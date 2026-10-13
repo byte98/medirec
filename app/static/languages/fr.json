@@ -3,7 +3,7 @@
     "name": "French",
     "nativeName": "Français",
     "version": "2.1.7",
-    "flag": "/static/svg/fr.svg",
+    "flag": "static/svg/fr.svg",
     "phrases": {
         "wait": "Loading, please wait...",
         "medical_records": "Dossiers médicaux",

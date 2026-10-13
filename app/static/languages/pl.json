@@ -3,7 +3,7 @@
     "name": "Polish",
     "nativeName": "Polski",
     "version": "2.1.7",
-    "flag": "/static/svg/pl.svg",
+    "flag": "static/svg/pl.svg",
     "phrases": {
         "wait": "Loading, please wait...",
         "medical_records": "Dokumentacja medyczna",

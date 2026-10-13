@@ -3,7 +3,7 @@
     "name": "Spanish",
     "nativeName": "Español",
     "version": "2.1.7",
-    "flag": "/static/svg/es.svg",
+    "flag": "static/svg/es.svg",
     "phrases": {
         "wait": "Loading, please wait...",
         "medical_records": "Registros médicos",

@@ -3,7 +3,7 @@
     "name": "Czech",
     "nativeName": "Čeština",
     "version": "2.1.7",
-    "flag": "/static/svg/cz.svg",
+    "flag": "static/svg/cz.svg",
     "phrases": {
         "wait": "Načítání, čekejte prosím...",
         "medical_records": "Zdravotní záznamy",
