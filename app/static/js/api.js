@@ -97,7 +97,7 @@ class API {
         return reti;
     }
     /** @param {string} identifier Client identifier. @param {object} options Report options. @returns {Promise<Response>} PDF response. */
-    createReport(identifier, options) { const reti = fetch(`api/clients/${encodeURIComponent(identifier)}/reports`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(options)}); return reti; }
+    createReport(identifier, options) { const reti = fetch(`${this.#endpoint}/clients/${encodeURIComponent(identifier)}/reports`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(options)}); return reti; }
     /** @param {string} identifier Client identifier. @returns {Promise<object[]>} Reports. */
     fetchReports(identifier) { const reti = this.#request(`/clients/${encodeURIComponent(identifier)}/reports`); return reti; }
 

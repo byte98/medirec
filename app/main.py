@@ -22,8 +22,8 @@ import argparse
 from pathlib import Path
 
 import uvicorn
-from fastapi import FastAPI, Request
-from fastapi.responses import FileResponse
+from fastapi import FastAPI
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
 from .api.router import MediRecAPI
@@ -48,7 +48,7 @@ def create_application(ini_path: Path) -> FastAPI:
     config.medirec.reports.mkdir(parents=True, exist_ok=True)
     storage = WorkbookStorage(config.medirec.workbook)
     storage.initialize()
-    languages = LanguageService(LANGUAGE_DIRECTORY)
+    languages = LanguageService(LANGUAGE_DIRECTORY, config.server.root_path)
     reports = ReportService(storage, languages, config.medirec.reports, APP_VERSION, STATIC_DIRECTORY)
     api = MediRecAPI(storage, languages, reports)
     application = FastAPI(
@@ -60,28 +60,20 @@ def create_application(ini_path: Path) -> FastAPI:
         openapi_url=None,
     )
 
-    configured_root_path = config.server.root_path
-
-    @application.middleware("http")
-    async def remove_external_root_path(request: Request, call_next):
-        """Accept requests with or without the reverse-proxy prefix."""
-        path = request.scope["path"]
-        if configured_root_path != "/" and (
-            path == configured_root_path or path.startswith(f"{configured_root_path}/")
-        ):
-            stripped_path = path[len(configured_root_path):] or "/"
-            request.scope["path"] = stripped_path
-            request.scope["raw_path"] = stripped_path.encode("ascii")
-        response = await call_next(request)
-        return response
-
     application.mount("/static", StaticFiles(directory=STATIC_DIRECTORY), name="static")
     application.include_router(api.router)
 
     @application.get("/", include_in_schema=False)
-    async def index() -> FileResponse:
+    async def index() -> HTMLResponse:
         """Serve the main MediRec page."""
-        reti = FileResponse(STATIC_DIRECTORY / "html" / "home.html")
+        root_path = config.server.root_path.rstrip("/")
+        asset_prefix = f"{root_path}/" if root_path else "/"
+        content = (STATIC_DIRECTORY / "html" / "home.html").read_text(encoding="utf-8")
+        content = content.replace('href="static/', 'href="__ASSET_PREFIX__static/')
+        content = content.replace('src="static/', 'src="__ASSET_PREFIX__static/')
+        content = content.replace("__ROOT_PATH__", root_path)
+        content = content.replace("__ASSET_PREFIX__", asset_prefix)
+        reti = HTMLResponse(content=content)
         return reti
 
     @application.get("/favicon.ico", include_in_schema=False)

@@ -25,19 +25,23 @@ from pathlib import Path
 class LanguageService:
     """Loads versioned language resources shipped with the application."""
 
-    def __init__(self, directory: Path):
+    def __init__(self, directory: Path, root_path: str = "/"):
         """Create language service.
 
         :param directory: Directory containing language JSON files.
+        :param root_path: External URL prefix used by the application.
         """
         self._directory = directory
+        self._root_path = root_path.rstrip("/")
 
     def metadata(self) -> list[dict]:
         """Return metadata for every available language."""
         metadata = []
         for path in sorted(self._directory.glob("*.json")):
             data = json.loads(path.read_text(encoding="utf-8"))
-            metadata.append({key: data[key] for key in ("code", "name", "nativeName", "version", "flag")})
+            item = {key: data[key] for key in ("code", "name", "nativeName", "version", "flag")}
+            item["flag"] = self._prefix_static_path(item["flag"])
+            metadata.append(item)
         reti = metadata
         return reti
 
@@ -52,4 +56,9 @@ class LanguageService:
         if not path.is_file():
             raise KeyError(code)
         reti = json.loads(path.read_text(encoding="utf-8"))
+        reti["flag"] = self._prefix_static_path(reti["flag"])
         return reti
+
+    def _prefix_static_path(self, path: str) -> str:
+        """Prefix a language asset path with the configured application path."""
+        return f"{self._root_path}/{path.lstrip('/')}" if self._root_path else f"/{path.lstrip('/')}"
