@@ -46,7 +46,13 @@ td {
     border-bottom: 1px solid color-mix(in srgb, var(--text-color) 18%, transparent);
 }
 
-thead th {
+th.unit{
+    text-align: left;
+    font-family: "UbuntuMono", monospace;
+    font-size: 0.85rem;
+}
+
+thead {
     font-weight: 600;
     border-bottom: 2px solid var(--text-color);
 }

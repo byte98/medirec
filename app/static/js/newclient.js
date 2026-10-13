@@ -163,6 +163,13 @@ class NewClient {
         const body = document.querySelector("#measurements-table tbody");
         body.innerHTML = "";
 
+        // Sort meassurements by date and time, newest first
+        measurements.sort((a, b) => {
+            const dateA = new Date(`${a.date}T${a.time}`);
+            const dateB = new Date(`${b.date}T${b.time}`);
+            return dateB.getTime() - dateA.getTime();
+        });
+
         for (const measurement of measurements) {
             const summary = document.createElement("tr");
             summary.className = "measurement-summary";

@@ -404,8 +404,8 @@
                 <table id="measurements-table">
                     <thead>
                         <tr>
-                            <th data-phrase="date">Date</th>
-                            <th data-phrase="time">Time</th>
+                            <th rowspan="2" data-phrase="date">Date</th>
+                            <th rowspan="2" data-phrase="time">Time</th>
                             <th data-phrase="systolic">Systolic <span class="unit">(mmHg)</span></th>
                             <th data-phrase="diastolic">Diastolic <span class="unit">(mmHg)</span></th>
                             <th data-phrase="pulse">Pulse <span class="unit">(bpm)</span></th>
@@ -413,7 +413,16 @@
                             <th data-phrase="height">Height <span class="unit">(cm)</span></th>
                             <th data-phrase="weight">Weight <span class="unit">(kg)</span></th>
                             <th data-phrase="bmi">BMI <span class="unit">(kg/m²)</span></th>
-                            <th data-phrase="notes">Notes</th>
+                            <th rowspan="2" data-phrase="notes">Notes</th>
+                        </tr>
+                        <tr>
+                            <th class="unit">mmHg</th>
+                            <th class="unit">mmHg</th>
+                            <th class="unit">min<sup>-1</sup></th>
+                            <th class="unit">&percnt;</th>
+                            <th class="unit">cm</th>
+                            <th class="unit">kg</th>
+                            <th class="unit">kg&times;<sup>-2</sup></th>
                         </tr>
                     </thead>
                     <tbody></tbody>
