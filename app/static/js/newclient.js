@@ -165,13 +165,14 @@ class NewClient {
 
         // Sort meassurements by date and time, newest first
         measurements.sort((a, b) => {
-            const dateA = new Date(`${a.date}T${a.time}`);
-            const dateB = new Date(`${b.date}T${b.time}`);
-            return dateA.getTime() - dateB.getTime();
+            const aStr = `${a.date}T${a.time}`;
+            const bStr = `${b.date}T${b.time}`;
+            const aDate = Date.parse(aStr);
+            const bDate = Date.parse(bStr);
+            return bDate - aDate;
         });
 
         for (const measurement of measurements) {
-            console.log(measurement);
             const summary = document.createElement("tr");
             summary.className = "measurement-summary";
             summary.innerHTML = [
