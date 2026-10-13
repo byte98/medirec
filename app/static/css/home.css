@@ -57,7 +57,7 @@ thead th{
     border-bottom: none;
 }
 
-thead th:last-child{
+thead tr:last-child th{
     border-bottom: 2px solid var(--text-color);
 }
 
