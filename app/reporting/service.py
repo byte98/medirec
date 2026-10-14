@@ -88,8 +88,13 @@ class ReportService:
         client = self._storage.get_client(identifier)
         phrases = self._languages.get(options.language)["phrases"]
         measurements = self._filter(client.measurements, options)
-        rows_per_page = self._rows_per_page(options)
-        chunks = [measurements[index:index + rows_per_page] for index in range(0, len(measurements), rows_per_page)]
+        first_page_rows = self._rows_per_page(options, first_page=True)
+        later_page_rows = self._rows_per_page(options, first_page=False)
+        chunks = []
+        if measurements:
+            chunks.append(measurements[:first_page_rows])
+            for index in range(first_page_rows, len(measurements), later_page_rows):
+                chunks.append(measurements[index:index + later_page_rows])
         if not chunks:
             chunks = [[]]
 
@@ -98,8 +103,8 @@ class ReportService:
         last_date = options.date_to or (measurements[-1].date if measurements else None)
         generated_time = self._date_time_text(datetime.now(), options.language)
         page_html = []
+        start = 1
         for page, rows in enumerate(chunks, 1):
-            start = (page - 1) * rows_per_page + 1
             end = min(start + len(rows) - 1, len(measurements))
             page_html.append(
                 self._page(
@@ -117,6 +122,7 @@ class ReportService:
                     generated_time,
                 )
             )
+            start += len(rows)
 
         title = phrases.get("medical_data_report", "Medical data report")
         reti = (
@@ -234,7 +240,7 @@ class ReportService:
             )
 
         personal = ""
-        if options.include_personal_data:
+        if options.include_personal_data and page == 1:
             personal = self._personal(client, phrases, options.language)
 
         first = self._date_text(first_date, options.language)
@@ -293,7 +299,7 @@ class ReportService:
         return reti
 
     @staticmethod
-    def _rows_per_page(options: ReportOptions) -> int:
+    def _rows_per_page(options: ReportOptions, first_page: bool) -> int:
         """Estimate the number of rows that fit on a report page."""
         page_heights = {"A4": 297, "A3": 420, "A5": 210, "Letter": 279, "Legal": 356}
         page_widths = {"A4": 210, "A3": 297, "A5": 148, "Letter": 216, "Legal": 216}
@@ -301,10 +307,10 @@ class ReportService:
         page_height = page_widths[page_size] if options.page_orientation == "landscape" else page_heights[page_size]
         margins = {"none": 0, "small": 10, "normal": 24, "large": 40}
         available_height = page_height - margins.get(options.margins, 0)
-        reserved_height = 30
+        reserved_height = 30 if first_page else 18
         if options.include_header:
             reserved_height += 14
-        if options.include_personal_data:
+        if options.include_personal_data and first_page:
             reserved_height += 46
         if options.include_footer:
             reserved_height += 14
@@ -556,11 +562,15 @@ class ReportService:
                 max-width: 100%;
                 font-size: 10pt;
                 overflow-wrap: anywhere;
-                word-break: break-word;
+                word-break: break-all;
             }
 
             footer p:nth-child(2) { text-align: center; white-space: nowrap; }
-            footer p:last-child { text-align: right; }
+            footer p:last-child { text-align: right; min-width: 0; }
+            footer strong {
+                overflow-wrap: anywhere;
+                word-break: break-all;
+            }
             .end-of-report {
                 margin-top: 1rem;
                 margin-bottom: 0.75rem;
