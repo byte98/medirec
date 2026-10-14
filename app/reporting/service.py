@@ -227,7 +227,7 @@ class ReportService:
         """Build one physical report page."""
         title = phrases.get("medical_data_report", "Medical data report")
         header = ""
-        if options.include_header:
+        if options.include_header and page == 1:
             header = (
                 "<header>"
                 f"<p>{html.escape(title)}</p>"
@@ -260,11 +260,12 @@ class ReportService:
                 "</article>"
             )
 
+        report_heading = f'<h2>{html.escape(phrases.get("report_data", "Report data"))}</h2>' if page == 1 else ""
         report_data = (
             '<section id="report-data">'
-            f'<h2>{html.escape(phrases.get("report_data", "Report data"))}</h2>'
-            f"{range_info}"
-            "<article>"
+            + report_heading
+            + range_info
+            + "<article>"
             f"<p>{html.escape(showing)} <strong>{start if measurements else 0}</strong> "
             f"{html.escape(to)} <strong>{end if measurements else 0}</strong> "
             f"{html.escape(phrases.get('of', 'of'))} <strong>{total}</strong>.</p>"
@@ -284,16 +285,18 @@ class ReportService:
                 "</footer>"
             )
 
+        title_heading = f"<h1>{html.escape(title)}</h1>" if page == 1 else ""
+        end_message = f'<p class="end-of-report">{html.escape(phrases.get("end_of_report", "End of the report."))}</p>' if page == pages else ""
         reti = (
             '<section class="report-page">'
-            f"{header}"
-            "<main>"
-            f"<h1>{html.escape(title)}</h1>"
-            f"{personal}"
-            f"{report_data}"
-            "</main>"
-            + (f'<p class="end-of-report">{html.escape(phrases.get("end_of_report", "End of the report."))}</p>' if page == pages else '')
-            + f"{footer}"
+            + header
+            + "<main>"
+            + title_heading
+            + personal
+            + report_data
+            + "</main>"
+            + end_message
+            + footer
             + "</section>"
         )
         return reti
@@ -308,12 +311,12 @@ class ReportService:
         margins = {"none": 0, "small": 10, "normal": 24, "large": 40}
         available_height = page_height - margins.get(options.margins, 0)
         reserved_height = 30 if first_page else 18
-        if options.include_header:
+        if options.include_header and first_page:
             reserved_height += 14
         if options.include_personal_data and first_page:
             reserved_height += 46
         if options.include_footer:
-            reserved_height += 14
+            reserved_height += 22
         row_height = 8
         return max(1, int((available_height - reserved_height) // row_height))
 
@@ -381,12 +384,12 @@ class ReportService:
         for column in columns:
             key, fallback, unit = self.COLUMNS[column]
             label = phrases.get(key, fallback)
-            if column in {"date", "time", "notes", "height"}:
+            if column in {"date", "time", "notes"}:
                 first_headers.append(f'<th rowspan="2">{html.escape(label)}</th>')
             else:
                 first_headers.append(f'<th colspan="2">{html.escape(label)}</th>')
 
-            if column in {"date", "time", "notes", "height"}:
+            if column in {"date", "time", "notes"}:
                 continue
             second_headers.append(f'<th colspan="2">{html.escape(unit)}</th>')
 
@@ -420,6 +423,8 @@ class ReportService:
                         indicator = '<td class="indicator-empty">&nbsp;</td>'
                     cells.append(indicator)
                     cells.append(f'<td>{html.escape(str(value))}</td>')
+                elif column == "height":
+                    cells.append(f'<td colspan="2">{html.escape(str(value))}</td>')
                 else:
                     cells.append(f'<td>{html.escape(str(value))}</td>')
 
@@ -557,6 +562,11 @@ class ReportService:
                 box-sizing: border-box;
             }
 
+            footer p:last-child {
+                grid-column: 1 / -1;
+                text-align: right;
+            }
+
             footer p {
                 min-width: 0;
                 max-width: 100%;
@@ -566,7 +576,6 @@ class ReportService:
             }
 
             footer p:nth-child(2) { text-align: center; white-space: nowrap; }
-            footer p:last-child { text-align: right; min-width: 0; }
             footer strong {
                 overflow-wrap: anywhere;
                 word-break: break-all;
