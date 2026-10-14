@@ -555,15 +555,23 @@ class ReportService:
             footer {
                 margin-top: auto;
                 border-top: 2px solid #000;
-                display: grid;
-                grid-template-columns: minmax(0, 1fr) auto minmax(0, 2fr);
+                display: flex;
+                flex-wrap: wrap;
                 gap: .5rem;
                 width: 100%;
                 box-sizing: border-box;
             }
 
+            footer p:first-child {
+                flex: 1 1 30%;
+            }
+
+            footer p:nth-child(2) {
+                flex: 0 0 auto;
+            }
+
             footer p:last-child {
-                grid-column: 1 / -1;
+                flex: 1 0 100%;
                 text-align: right;
             }
 
@@ -572,13 +580,13 @@ class ReportService:
                 max-width: 100%;
                 font-size: 10pt;
                 overflow-wrap: anywhere;
-                word-break: break-all;
+                word-break: normal;
             }
 
             footer p:nth-child(2) { text-align: center; white-space: nowrap; }
             footer strong {
                 overflow-wrap: anywhere;
-                word-break: break-all;
+                word-break: normal;
             }
             .end-of-report {
                 margin-top: 1rem;
