@@ -286,7 +286,7 @@ class ReportService:
             )
 
         title_heading = f"<h1>{html.escape(title)}</h1>" if page == 1 else ""
-        end_message = f'<p class="end-of-report">{html.escape(phrases.get("end_of_report", "End of the report."))}</p>' if page == pages else ""
+        end_message = f'<p class="end-of-report"><em>{html.escape(phrases.get("end_of_report", "End of the report."))}</em></p>' if page == pages else ""
         reti = (
             '<section class="report-page">'
             + header

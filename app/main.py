@@ -32,7 +32,7 @@ from .i18n.service import LanguageService
 from .storage.excel import WorkbookStorage
 from .reporting.service import ReportService
 
-APP_VERSION = "2.2.2"
+APP_VERSION = "2.2.3"
 BASE_DIRECTORY = Path(__file__).resolve().parent
 STATIC_DIRECTORY = BASE_DIRECTORY / "static"
 LANGUAGE_DIRECTORY = STATIC_DIRECTORY / "languages"
