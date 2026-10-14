@@ -273,7 +273,7 @@ class NewClient {
                 time.value = NewClient.#formatInputTime(now);
             }
             const measurements = NewClient.#client?.measurements ?? [];
-            const latest = measurements.length > 0 ? measurements[measurements.length - 1] : null;
+            const latest = measurements.length > 0 ? measurements[0] : null;
             const latestFields = ["systolic", "diastolic", "pulse", "oxygen_saturation", "height", "weight"];
             for (const field of latestFields) {
                 const input = form.elements.namedItem(field);

@@ -88,14 +88,18 @@ class ReportService:
         client = self._storage.get_client(identifier)
         phrases = self._languages.get(options.language)["phrases"]
         measurements = self._filter(client.measurements, options)
-        chunks = [measurements[index:index + 10] for index in range(0, len(measurements), 10)]
+        rows_per_page = self._rows_per_page(options)
+        chunks = [measurements[index:index + rows_per_page] for index in range(0, len(measurements), rows_per_page)]
         if not chunks:
             chunks = [[]]
 
         pages = len(chunks)
+        first_date = options.date_from or (measurements[0].date if measurements else None)
+        last_date = options.date_to or (measurements[-1].date if measurements else None)
+        generated_time = self._date_time_text(datetime.now(), options.language)
         page_html = []
         for page, rows in enumerate(chunks, 1):
-            start = (page - 1) * 10 + 1
+            start = (page - 1) * rows_per_page + 1
             end = min(start + len(rows) - 1, len(measurements))
             page_html.append(
                 self._page(
@@ -108,6 +112,9 @@ class ReportService:
                     end,
                     options,
                     phrases,
+                    first_date,
+                    last_date,
+                    generated_time,
                 )
             )
 
@@ -207,6 +214,9 @@ class ReportService:
         end: int,
         options: ReportOptions,
         phrases: dict,
+        first_date,
+        last_date,
+        generated_time: str,
     ) -> str:
         """Build one physical report page."""
         title = phrases.get("medical_data_report", "Medical data report")
@@ -227,8 +237,6 @@ class ReportService:
         if options.include_personal_data:
             personal = self._personal(client, phrases, options.language)
 
-        first_date = measurements[0].date if measurements else options.date_from
-        last_date = measurements[-1].date if measurements else options.date_to
         first = self._date_text(first_date, options.language)
         last = self._date_text(last_date, options.language)
         found = phrases.get("found_records", "Found")
@@ -236,14 +244,20 @@ class ReportService:
         to = phrases.get("to", "to")
         showing = phrases.get("showing_records", "Showing records")
 
+        range_info = ""
+        if page == 1:
+            range_info = (
+                "<article>"
+                f"<p>{html.escape(found)} <strong>{total}</strong> "
+                f"{html.escape(records_range)} <strong>{html.escape(first)}</strong> "
+                f"{html.escape(to)} <strong>{html.escape(last)}</strong>.</p>"
+                "</article>"
+            )
+
         report_data = (
             '<section id="report-data">'
             f'<h2>{html.escape(phrases.get("report_data", "Report data"))}</h2>'
-            "<article>"
-            f"<p>{html.escape(found)} <strong>{total}</strong> "
-            f"{html.escape(records_range)} <strong>{html.escape(first)}</strong> "
-            f"{html.escape(to)} <strong>{html.escape(last)}</strong>.</p>"
-            "</article>"
+            f"{range_info}"
             "<article>"
             f"<p>{html.escape(showing)} <strong>{start if measurements else 0}</strong> "
             f"{html.escape(to)} <strong>{end if measurements else 0}</strong> "
@@ -256,7 +270,6 @@ class ReportService:
         footer = ""
         if options.include_footer:
             generated = phrases.get("generated", "Date and time of generation")
-            generated_time = self._date_time_text(datetime.now(), options.language)
             footer = (
                 "<footer>"
                 f"<p>MediRec v{html.escape(self._application_version)}</p>"
@@ -278,6 +291,25 @@ class ReportService:
             + "</section>"
         )
         return reti
+
+    @staticmethod
+    def _rows_per_page(options: ReportOptions) -> int:
+        """Estimate the number of rows that fit on a report page."""
+        page_heights = {"A4": 297, "A3": 420, "A5": 210, "Letter": 279, "Legal": 356}
+        page_widths = {"A4": 210, "A3": 297, "A5": 148, "Letter": 216, "Legal": 216}
+        page_size = options.page_size if options.page_size in page_heights else "A4"
+        page_height = page_widths[page_size] if options.page_orientation == "landscape" else page_heights[page_size]
+        margins = {"none": 0, "small": 10, "normal": 24, "large": 40}
+        available_height = page_height - margins.get(options.margins, 0)
+        reserved_height = 30
+        if options.include_header:
+            reserved_height += 14
+        if options.include_personal_data:
+            reserved_height += 46
+        if options.include_footer:
+            reserved_height += 14
+        row_height = 8
+        return max(1, int((available_height - reserved_height) // row_height))
 
     def _personal(self, client, phrases: dict, language: str) -> str:
         """Build the personal-data section from the supplied template."""
@@ -452,8 +484,14 @@ class ReportService:
         page_sizes = {"A4", "A3", "A5", "Letter", "Legal"}
         page_size = options.page_size if options.page_size in page_sizes else "A4"
         orientation = options.page_orientation if options.page_orientation in {"portrait", "landscape"} else "portrait"
-        margin_values = {"none": "0", "small": "5mm", "normal": "12mm", "large": "20mm"}
-        margin = margin_values.get(options.margins, "0")
+        page_dimensions = {"A4": (210, 297), "A3": (297, 420), "A5": (148, 210), "Letter": (216, 279), "Legal": (216, 356)}
+        page_height = page_dimensions[page_size][1]
+        if orientation == "landscape":
+            page_height = page_dimensions[page_size][0]
+        margin_values = {"none": 0, "small": 5, "normal": 12, "large": 20}
+        margin_mm = margin_values.get(options.margins, 0)
+        margin = f"{margin_mm}mm"
+        content_height = page_height - (2 * margin_mm)
         reti = '''
             @page {
                 size: __PAGE_SIZE__ __ORIENTATION__;
@@ -481,7 +519,7 @@ class ReportService:
             }
 
             .report-page {
-                min-height: 273mm;
+                min-height: __PAGE_HEIGHT__mm;
                 display: flex;
                 flex-direction: column;
                 page-break-after: always;
@@ -515,9 +553,10 @@ class ReportService:
 
             footer p {
                 min-width: 0;
-                font-size: 8pt;
+                max-width: 100%;
+                font-size: 10pt;
                 overflow-wrap: anywhere;
-                word-break: normal;
+                word-break: break-word;
             }
 
             footer p:nth-child(2) { text-align: center; white-space: nowrap; }
@@ -527,6 +566,7 @@ class ReportService:
                 margin-bottom: 0.75rem;
                 text-align: center;
                 font-style: italic;
+                font-weight: bold;
                 overflow-wrap: anywhere;
             }
 
@@ -603,6 +643,10 @@ class ReportService:
                 text-align: left;
             }
 
+            #report-data tbody tr {
+                break-inside: avoid;
+            }
+
             #report-data td {
                 font-family: "Ubuntu Mono", monospace;
             }
@@ -646,5 +690,5 @@ class ReportService:
                 border: none;
             }
         '''
-        reti = reti.replace("__PAGE_SIZE__", page_size).replace("__ORIENTATION__", orientation).replace("__MARGIN__", margin)
+        reti = reti.replace("__PAGE_SIZE__", page_size).replace("__ORIENTATION__", orientation).replace("__MARGIN__", margin).replace("__PAGE_HEIGHT__", str(content_height))
         return reti
